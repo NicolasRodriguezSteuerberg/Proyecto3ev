@@ -1,15 +1,44 @@
 package Clases;
 
 public class Hospital {
-    String codh, nombreH, tipoH;
+    String codH, nombreH, tipoH;
     int nroMedicos, nroHabitaciones;
 
-    public String getCodh() {
-        return codh;
+    /**
+     * Constructor de Hospital
+     * @param codH -> codigo primario (codigo hospital)
+     * @param nombreH -> nombre hospital
+     * @param tipoH -> tipo de hospital (público o privado)
+     * @param nroMedicos -> cuantos médicos tiene el hospital
+     * @param nroHabitaciones -> cuantas habitaciones tiene el hospital
+     */
+    public Hospital(String codH, String nombreH, String tipoH, int nroMedicos, int nroHabitaciones) {
+        this.codH = codH;
+        this.nombreH = nombreH;
+        this.tipoH = tipoH;
+        this.nroMedicos = nroMedicos;
+        this.nroHabitaciones = nroHabitaciones;
     }
 
-    public void setCodh(String codh) {
-        this.codh = codh;
+    /**
+     * @return mensaje con la información del hospital
+     */
+    @Override
+    public String toString() {
+        return  "codigo del hospital: " + codH +
+                ", nombre: " + nombreH +
+                ", tipo: " + tipoH +
+                ", numero de medicos: " + nroMedicos +
+                ", numero de habitaciones: " + nroHabitaciones;
+    }
+
+    //setters y getters
+    public String getCodH() {
+        return codH;
+    }
+
+    public void setCodH(String codH) {
+        this.codH = codH;
     }
 
     public String getNombreH() {
