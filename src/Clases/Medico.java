@@ -19,11 +19,11 @@ public class Medico extends Persona{
      */
     @Override
     public String toString() {
-        return  ", codMedico: " + codP + '\'' +
-                ", nomP='" + nomP + '\'' + "codH1='" + codH1;
+        return  "codMedico: " + codP + ", nomP: " + nomP + "codH1: " + codH1;
     }
 
     //setters y getters
+    
     public String getCodH1() {
         return codH1;
     }

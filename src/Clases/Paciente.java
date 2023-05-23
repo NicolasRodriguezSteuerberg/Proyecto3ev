@@ -13,6 +13,7 @@ public class Paciente extends Persona{
         super(codP,nomP);
         this.codMed1 = codMed1;
     }
+
     /**
      * @return mensaje con la información del paciente
      */
