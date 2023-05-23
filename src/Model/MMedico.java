@@ -21,7 +21,7 @@ public class MMedico{
     public void crearMedico(String codM, String nombreM,String codH, JLabel label) {
         try {
             Connection con = auxCon.conectar();
-            PreparedStatement ps = con.prepareStatement("INSERT INTO medico (codM,nomM,codH) VALUES (?,?,?)");
+            PreparedStatement ps = con.prepareStatement("INSERT INTO medico(codM,nomM,codH) VALUES (?,?,?)");
 
             ps.setString(1, codM);
             ps.setString(2, nombreM);
@@ -37,29 +37,5 @@ public class MMedico{
         }
 
     }
-
-    /**
-     * método para contar la cantidad de médicos en un hospital en específico
-     * @param codH -> código de hospital donde trabaja
-     * @param label -> mensaje popout  en interfaz
-     * @return
-     */
-        public int contarMedico(String codH, JLabel label){
-            int numero=0;
-            try{
-                Connection con=auxCon.conectar();
-                PreparedStatement ps=con.prepareStatement("SELECT COUNT(*) FROM medico WHERE codH=?");
-                ps.setString(1, codH);
-                ResultSet rs= ps.executeQuery();
-
-                numero=((Number) rs.getObject(1)).intValue();
-
-
-            }catch(SQLException e){
-                label.setText("ERROR: select fallido");
-                label.setForeground(Color.red);
-            }
-            return numero;
-        }
 
 }
