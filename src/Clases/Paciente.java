@@ -1,7 +1,7 @@
 package Clases;
 
-public class Paciente {
-    String codP, nomP, codMed1;
+public class Paciente extends Persona{
+    String codMed1;
 
     /**
      * Constructor paciente
@@ -10,36 +10,15 @@ public class Paciente {
      * @param codMed1 -> código del médico que tiene asignado
      */
     public Paciente(String codP, String nomP, String codMed1) {
-        this.codP = codP;
-        this.nomP = nomP;
+        super(codP,nomP);
         this.codMed1 = codMed1;
     }
-
     /**
      * @return mensaje con la información del paciente
      */
     @Override
     public String toString() {
-        return  "codigo del paciente: " + codP +
-                ", nombre: " + nomP +
-                ", codigo del médico: " + codMed1;
-    }
-
-    //setters y getters
-    public String getCodP() {
-        return codP;
-    }
-
-    public void setCodP(String codP) {
-        this.codP = codP;
-    }
-
-    public String getNomP() {
-        return nomP;
-    }
-
-    public void setNomP(String nomP) {
-        this.nomP = nomP;
+        return  "codP: " + codP + ", nomP: " + nomP + "codMed1: " + codMed1;
     }
 
     public String getCodMed1() {
