@@ -20,7 +20,6 @@ public class GestionBases {
             System.out.println("SE HA CONECTADO A BD: " + bd);
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println("NO SE PUDO CONECTAR A BD: " + bd);
-            //Logger.getLogger(ProyectoBD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return cx;
     }
