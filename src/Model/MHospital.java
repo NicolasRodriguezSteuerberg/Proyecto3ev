@@ -22,15 +22,13 @@ public class MHospital{
     public void crearHospital(String codH, String nombreH, String tipoH, int nroHabit, JLabel label){
         try {
             Connection con = auxCon.conectar();
-            PreparedStatement ps = con.prepareStatement("insert into hospital (codH, nombreH, tipoH, nroM, nroHabt) values (?, ?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement("insert into hospital (codH, nombreH, tipoH, nroHabt) values (?, ?, ?, ?)");
 
-            int nroMedico = auxMed.contarMedico(codH, label);
 
             ps.setString(1, codH);
             ps.setString(2, nombreH);
             ps.setString(3, tipoH);
-            ps.setInt(4, nroMedico);
-            ps.setInt(5, nroHabit);
+            ps.setInt(4, nroHabit);
 
             ps.executeUpdate();
 
