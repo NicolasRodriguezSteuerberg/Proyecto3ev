@@ -23,7 +23,9 @@ public class MMedico{
     public void crearMedico(String codM, String nombreM,String codH, JLabel label) {
         try {
             Connection con = auxCon.conectar();
-            PreparedStatement ps = con.prepareStatement("INSERT INTO medico(codM,nomM,codH) VALUES (?,?,?)");
+
+            PreparedStatement ps = con.prepareStatement("INSERT INTO medico (codM,nomM,codH) VALUES (?,?,?)");
+
 
             ps.setString(1, codM);
             ps.setString(2, nombreM);
