@@ -72,7 +72,7 @@ public class MHospital{
 
     /**
      * Eliminar un hospital de la base de datos a partir de su código
-     * @param lista ->
+     * @param lista -> ArrayList de tipo hospital con los datos
      * @param codH -> código del hospital
      * @param label -> etiqueta de la interfaz para mostrar los mensajes
      */
@@ -108,5 +108,37 @@ public class MHospital{
         lista.get(numeroAModificar).setNombreH(nombreH);
         lista.get(numeroAModificar).setNroHabitaciones(nroHabitaciones);
         lista.get(numeroAModificar).setTipoH(tipoH);
+    }
+
+    /**
+     * Metodo para modificar el numero de médicos cuando se añada un médico o se modifique
+     * @param lista -> ArrayList de tipo hospital con los datos
+     * @param codH -> código del hospital
+     * @param numeroMedico -> numero de médicos
+     * @param label -> etiqueta de la interfaz para mostrar los mensajes
+     */
+    public void modificarNroMedico(ArrayList<Hospital> lista, String codH, int numeroMedico,JLabel label){
+        numeroAModificar = lista.indexOf(codH);
+        lista.get(numeroAModificar).setNroMedicos(numeroMedico);
+        try {
+            Connection con = auxCon.conectar();
+
+            PreparedStatement ps = con.prepareStatement("update hospital set nroM=? where codH=?");
+
+            ps.setInt(1, numeroMedico);
+            ps.setString(2,  codH);
+
+            verificacion = ps.executeUpdate();
+
+            if(verificacion==0){
+                VentanaLabel.mensajeLabel("No existe el hospital con el código: " +  codH, label, Color.red);
+            }
+            else{
+                VentanaLabel.mensajeLabel("Hospital modificado",label,Color.black);
+            }
+
+        } catch (SQLException e) {
+            VentanaLabel.mensajeLabel("ERROR en la modificación del hospital",label,Color.red);
+        }
     }
 }
