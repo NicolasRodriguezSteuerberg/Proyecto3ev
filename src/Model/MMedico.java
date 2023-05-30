@@ -87,4 +87,22 @@ public class MMedico{
         }
     }
 
+    public int contarMedicos(String codH, JLabel label){
+        int valor=0;
+        try {
+            Connection con = auxCon.conectar();
+            ResultSet rs;
+            PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM medico WHERE codH=?");
+
+            ps.setString(1, codH);
+
+            rs=ps.executeQuery();
+            valor = rs.getInt(1);
+        }catch(SQLException e){
+            VentanaLabel.mensajeLabel("Error al contar los medicos",label,Color.red);
+        }
+
+        return valor;
+    }
+
 }
