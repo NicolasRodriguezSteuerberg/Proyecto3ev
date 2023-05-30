@@ -13,7 +13,6 @@ import com.nicosteuerberg.datos.VentanaLabel;
 
 public class MHospital{
     GestionBases auxCon= new GestionBases();
-    MMedico auxMed = new MMedico();
     int numeroAModificar;
     int verificacion;
     /**
@@ -88,10 +87,10 @@ public class MHospital{
             verificacion = ps.executeUpdate();
 
             if(verificacion==0){
-                VentanaLabel.mensajeLabel("No existe el hospital con el código: " + codH,label,Color.black);
+                VentanaLabel.mensajeLabel("No existe el hospital con el código: " + codH,label,Color.red);
             }
             else{
-                VentanaLabel.mensajeLabel("Alumno eliminado", label, Color.red);
+                VentanaLabel.mensajeLabel("Hospital eliminado", label, Color.black);
             }
 
         }catch (SQLException e){
@@ -103,6 +102,14 @@ public class MHospital{
 
     }
 
+    /**
+     * Metodo para modificar el arrayList
+     * @param lista -> ArrayList tipo hospital con los datos
+     * @param codH -> código de hospital
+     * @param nombreH -> nombre de hospital
+     * @param tipoH -> tipo de hospital
+     * @param nroHabitaciones -> número de habitaciones de hospital
+     */
     public void modificarArray(ArrayList<Hospital> lista, String codH, String nombreH, String tipoH, int nroHabitaciones){
         numeroAModificar = lista.indexOf(codH);
         lista.get(numeroAModificar).setNombreH(nombreH);
