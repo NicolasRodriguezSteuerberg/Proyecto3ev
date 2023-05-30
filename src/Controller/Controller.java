@@ -64,4 +64,5 @@ public class Controller {
     static void eliminarHospital(String codH, JLabel label){
         obxH.eliminarHospital(lHospital, codH,label);
     }
+
 }
