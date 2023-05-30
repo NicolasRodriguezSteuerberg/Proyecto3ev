@@ -13,18 +13,17 @@ public class MHospital{
     MMedico auxMed = new MMedico();
     int verificacion;
     /**
-     * Crear hospital (insert en la tabla hospital)
+     * Método para crear un hospital en la base de datos
      * @param codH -> codigo del hospital
      * @param nombreH -> nombre del hospital
      * @param tipoH -> tipo del hospital (público, privado)
      * @param nroHabit -> numero de habitaciones que hay en el hospital
-     * @param label -> etiqueta de la interfaz
+     * @param label -> etiqueta de la interfaz para mostrar los mensajes
      */
     public void crearHospital(String codH, String nombreH, String tipoH, int nroHabit, JLabel label){
         try {
             Connection con = auxCon.conectar();
             PreparedStatement ps = con.prepareStatement("insert into hospital (codH, nombreH, tipoH, nroHabt) values (?, ?, ?, ?)");
-
 
             ps.setString(1, codH);
             ps.setString(2, nombreH);
@@ -40,7 +39,14 @@ public class MHospital{
         }
     }
 
-
+    /**
+     * Modificar el hospital identificandolo por el codigo
+     * @param codH -> codigo del hospital
+     * @param nombreH -> nombre del hospital
+     * @param tipoH -> tipo del hospital (público, privado)
+     * @param nroHabit -> numero de habitaciones que hay en el hospital
+     * @param label -> etiqueta de la interfaz para mostrar los mensajes
+     */
     public void modificarHospital(String codH, String nombreH, String tipoH, int nroHabit, JLabel label){
         try {
             Connection con = auxCon.conectar();
@@ -65,6 +71,11 @@ public class MHospital{
         }
     }
 
+    /**
+     * Eliminar un hospital de la base de datos a partir de su código
+     * @param codH -> código del hospital
+     * @param label -> etiqueta de la interfaz para mostrar los mensajes
+     */
     public void eliminarHospital(String codH, JLabel label){
         try {
             Connection con = auxCon.conectar();
