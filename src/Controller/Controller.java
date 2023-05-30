@@ -38,7 +38,7 @@ public class Controller {
         /**ToDo
          * Contar medicos de un hospital
          */
-        int nroMedico = obxM.contarMedicos();
+        int nroMedico = obxM.contarMedicos(codH,label);
         lHospital.add(new Hospital(codH, nombreH, tipoH, nroMedico, nroHabitaciones));
         obxH.crearHospital(lHospital, label);
     }
