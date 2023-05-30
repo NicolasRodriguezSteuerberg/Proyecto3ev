@@ -12,28 +12,26 @@ import java.sql.*;
 public class MMedico{
     GestionBases auxCon= new GestionBases();
     int verificacion;
+    int numeroAModificar;
 
     /**
      * Método para crear un médico en la base de Datos
-     * @param codM -> codigo del médico
-     * @param nombreM -> nombre del médico
-     * @param codH -> codigo referente del hospital donde trabaja
+     * @param lista -> ArrayList de tipo Médico con el que vamos a añadir un médico
      * @param label -> etiqueta de la interfaz para mostrar los mensajes
      */
-    public void crearMedico(String codM, String nombreM,String codH, JLabel label) {
+    public void crearMedico(ArrayList<Medico> lista, JLabel label) {
         try {
             Connection con = auxCon.conectar();
 
             PreparedStatement ps = con.prepareStatement("INSERT INTO medico (codM,nomM,codH) VALUES (?,?,?)");
 
-
-            ps.setString(1, codM);
-            ps.setString(2, nombreM);
-            ps.setString(3, codH);
+            ps.setString(1, lista.get((lista.size()-1)).getCodP());
+            ps.setString(2, lista.get((lista.size()-1)).getNomP());
+            ps.setString(3, lista.get((lista.size()-1)).getCodH1());
 
             ps.executeUpdate();
 
-                VentanaLabel.mensajeLabel("Médico creado", label, Color.black);
+            VentanaLabel.mensajeLabel("Médico creado", label, Color.black);
 
         } catch (SQLException e) {
             VentanaLabel.mensajeLabel("ERROR a la hora de hacer el insert",label,Color.red);
@@ -43,18 +41,18 @@ public class MMedico{
 
     /**
      * Método para modificar un médico a partir de su código
+     * @param lista ->
      * @param codM -> código del médico
-     * @param nombreM -> nombre del médico
-     * @param codH -> código del hospital en el que trabaja
      * @param label -> etiqueta de la interfaz para mostrar los mensajes
      */
-    public void modificarMedico(String codM, String nombreM,String codH, JLabel label){
+    public void modificarMedico(ArrayList<Medico> lista, String codM, JLabel label){
+        numeroAModificar=lista.indexOf(codM);
         try {
             Connection con = auxCon.conectar();
             PreparedStatement ps = con.prepareStatement("UPDATE medico SET nomM=?,codH=? WHERE codM=?");
 
-            ps.setString(1, nombreM);
-            ps.setString(2, codH);
+            ps.setString(1, lista.get(numeroAModificar).getNomP());
+            ps.setString(2, lista.get(numeroAModificar).getCodH1());
             ps.setString(3, codM);
 
             verificacion=ps.executeUpdate();
