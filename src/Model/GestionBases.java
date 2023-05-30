@@ -1,6 +1,11 @@
 package Model;
 
+import Clases.Hospital;
+import Clases.Medico;
+import Clases.Paciente;
+
 import java.sql.*;
+import java.util.ArrayList;
 
 public class GestionBases {
 
@@ -20,6 +25,10 @@ public class GestionBases {
             System.out.println("NO SE PUDO CONECTAR A BD: " + bd);
         }
         return cx;
+    }
+
+    public static void crearArrayList(ArrayList<Hospital> lHospital, ArrayList<Medico> lMedico, ArrayList<Paciente> lPaciente){
+
     }
 
     public void desconectar() {
