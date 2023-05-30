@@ -14,6 +14,13 @@ public class MPaciente{
     GestionBases auxCon= new GestionBases();
     int verificacion;
 
+    /**
+     * Método para crear un paciente en la base de datos
+     * @param codP -> codigo del paciente
+     * @param nomP -> nombre del paciente
+     * @param codM -> código del médico que le atiende
+     * @param label -> etiqueta de la interfaz para mostrar los mensajes
+     */
     public void crearPaciente(String codP, String nomP, String codM, JLabel label){
         try {
             Connection con = auxCon.conectar();
@@ -32,6 +39,13 @@ public class MPaciente{
 
     }
 
+    /**
+     * Método para modificar un paciente a partir de su código
+     * @param codP -> código del paciente
+     * @param nomP -> nombre del paciente
+     * @param codM -> código del médico que le atiende
+     * @param label -> etiqueta de la interfaz para mostrar los mensajes
+     */
     public void modificarPaciente(String codP, String nomP, String codM, JLabel label){
         try {
             Connection con = auxCon.conectar();
@@ -53,6 +67,11 @@ public class MPaciente{
         }
     }
 
+    /**
+     * Método para eliminar un paciente a partir de su código
+     * @param codP -> código del paciente
+     * @param label -> etiqueta de la interfaz para mostrar los mensajes
+     */
     public void eliminarPaciente(String codP, JLabel label){
         try {
             Connection con = auxCon.conectar();

@@ -14,11 +14,11 @@ public class MMedico{
     int verificacion;
 
     /**
-     * Crear Médico en la base de Datos
+     * Método para crear un médico en la base de Datos
      * @param codM -> codigo del médico
      * @param nombreM -> nombre del médico
      * @param codH -> codigo referente del hospital donde trabaja
-     * @param label -> mensaje popout en interfaz
+     * @param label -> etiqueta de la interfaz para mostrar los mensajes
      */
     public void crearMedico(String codM, String nombreM,String codH, JLabel label) {
         try {
@@ -41,6 +41,13 @@ public class MMedico{
 
     }
 
+    /**
+     * Método para modificar un médico a partir de su código
+     * @param codM -> código del médico
+     * @param nombreM -> nombre del médico
+     * @param codH -> código del hospital en el que trabaja
+     * @param label -> etiqueta de la interfaz para mostrar los mensajes
+     */
     public void modificarMedico(String codM, String nombreM,String codH, JLabel label){
         try {
             Connection con = auxCon.conectar();
@@ -62,6 +69,11 @@ public class MMedico{
         }
     }
 
+    /**
+     * Método para eliminar un médico a partir de su código
+     * @param codM -> código del médico
+     * @param label -> etiqueta de la interfaz para mostrar los mensajes
+     */
     public void eliminarMedico(String codM, JLabel label){
         try {
             Connection con = auxCon.conectar();
