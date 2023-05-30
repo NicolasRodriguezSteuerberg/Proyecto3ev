@@ -24,12 +24,13 @@ public class MHospital{
     public void crearHospital(ArrayList<Hospital> lista, JLabel label){
         try {
             Connection con = auxCon.conectar();
-            PreparedStatement ps = con.prepareStatement("insert into hospital (codH, nombreH, tipoH, nroHabt) values (?, ?, ?, ?)");
+            PreparedStatement ps = con.prepareStatement("insert into hospital (codH, nombreH, tipoH, nroM, nroHabt) values (?, ?, ?, ?, ?)");
 
             ps.setString(1, lista.get((lista.size()-1)).getCodH());
-            ps.setString(2, lista.get((lista.size())-1).getNombreH());
-            ps.setString(3, lista.get((lista.size())-1).getTipoH());
-            ps.setInt(4, lista.get((lista.size()-1)).getNroHabitaciones());
+            ps.setString(2, lista.get((lista.size()-1)).getNombreH());
+            ps.setString(3, lista.get((lista.size()-1)).getTipoH());
+            ps.setInt(4, lista.get((lista.size()-1)).getNroMedicos());
+            ps.setInt(5, lista.get((lista.size()-1)).getNroHabitaciones());
 
             ps.executeUpdate();
 
