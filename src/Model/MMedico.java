@@ -3,6 +3,8 @@ package Model;
 import java.awt.*;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+
+import Clases.Hospital;
 import Clases.Medico;
 import com.nicosteuerberg.datos.VentanaLabel;
 
@@ -31,7 +33,7 @@ public class MMedico{
 
             ps.executeUpdate();
 
-            VentanaLabel.mensajeLabel("Médico creado", label, Color.black);
+            VentanaLabel.mensajeLabel("Médico añadido", label, Color.black);
 
         } catch (SQLException e) {
             VentanaLabel.mensajeLabel("ERROR a la hora de hacer el insert",label,Color.red);
@@ -46,7 +48,6 @@ public class MMedico{
      * @param label -> etiqueta de la interfaz para mostrar los mensajes
      */
     public void modificarMedico(ArrayList<Medico> lista, String codM, JLabel label){
-        numeroAModificar=lista.indexOf(codM);
         try {
             Connection con = auxCon.conectar();
             PreparedStatement ps = con.prepareStatement("UPDATE medico SET nomM=?,codH=? WHERE codM=?");
@@ -69,24 +70,40 @@ public class MMedico{
 
     /**
      * Método para eliminar un médico a partir de su código
+     * @param lista -> ArrayList de tipo medico con los datos
      * @param codM -> código del médico
      * @param label -> etiqueta de la interfaz para mostrar los mensajes
      */
-    public void eliminarMedico(String codM, JLabel label){
+    public void eliminarMedico(ArrayList<Medico>lista,String codM, JLabel label){
+        numeroAModificar=lista.indexOf(codM);
+        lista.remove(numeroAModificar);
         try {
             Connection con = auxCon.conectar();
             PreparedStatement ps = con.prepareStatement("DELETE FROM medico WHERE codM=?");
 
             ps.setString(1, codM);
 
-            ps.executeUpdate();
-            VentanaLabel.mensajeLabel("Médico eliminado",label,Color.black);
+            verificacion= ps.executeUpdate();
+
+            if(verificacion==0){
+                VentanaLabel.mensajeLabel(" No existe el médico con tal codigo",label,Color.red);
+
+            }else{
+                VentanaLabel.mensajeLabel("Médico eliminado",label,Color.black);
+
+            }
 
         }catch(SQLException e){
             VentanaLabel.mensajeLabel("Error en la eliminación del medico",label,Color.red);
         }
     }
 
+    /**
+     * Método para contar la cantidad de médicos en la base de datos
+     * @param codH -> codigo del hospital al que pertenece el medico
+     * @param label -> etiqueta de la interfaz para mostrar los mensajes
+     * @return cantidad de médicos en el hospital respectivamente
+     */
     public int contarMedicos(String codH, JLabel label){
         int valor=0;
         try {
@@ -103,6 +120,20 @@ public class MMedico{
         }
 
         return valor;
+    }
+
+    /**
+     * Método para modificar el ArrayList
+     * @param lista -> ArrayList tipo Médico con los datos
+     * @param codM -> código del medico
+     * @param nombreM -> nombre del médico
+     * @param codH -> código del hospital al que pertenece
+     */
+    public void modificarArray(ArrayList<Medico> lista, String codM, String nombreM, String codH){
+        numeroAModificar = lista.indexOf(codM);
+        lista.get(numeroAModificar).setNomP(nombreM);
+        lista.get(numeroAModificar).setCodP(codM);
+        lista.get(numeroAModificar).setCodH1(codH);
     }
 
 }
