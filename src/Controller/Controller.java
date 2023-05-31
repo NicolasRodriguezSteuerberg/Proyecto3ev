@@ -5,6 +5,8 @@ import Model.GestionBases;
 import Model.MHospital;
 import Model.MMedico;
 import Model.MPaciente;
+import View.Vista;
+
 import javax.swing.*;
 import java.util.ArrayList;
 
@@ -15,6 +17,7 @@ public class Controller {
     static MHospital obxH=new MHospital();
     static MMedico obxM= new MMedico();
     static MPaciente obxP= new MPaciente();
+    static Vista miVista = new Vista();
 
 
     //CREAR
@@ -144,5 +147,23 @@ public class Controller {
      */
     static void eliminarHospital(String codH, JLabel label){
         obxH.eliminarHospital(lHospital, codH,label);
+    }
+
+    public void cambiarPaneles(int numero){
+        switch (numero){
+            case Vista.panelMenu:
+                miVista.visualizarMenu();
+                break;
+            case Vista.panelHospital:
+                miVista.visualizarHospital();
+                break;
+            case Vista.panelMedico:
+                miVista.visualizarMedico();
+                break;
+            case Vista.panelPaciente:
+                miVista.visualizarPaciente();
+                break;
+
+        }
     }
 }
