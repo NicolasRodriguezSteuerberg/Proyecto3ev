@@ -3,11 +3,8 @@ package Model;
 import java.awt.*;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
-
-import Clases.Hospital;
 import Clases.Medico;
 import com.nicosteuerberg.datos.VentanaLabel;
-
 import javax.swing.*;
 import java.sql.*;
 
@@ -34,6 +31,10 @@ public class MMedico{
             ps.executeUpdate();
 
             VentanaLabel.mensajeLabel("Médico añadido", label, Color.black);
+
+            /**ToDO
+             * Modificar el numero de médicos de un hospital
+             */
 
         } catch (SQLException e) {
             VentanaLabel.mensajeLabel("ERROR a la hora de hacer el insert",label,Color.red);
