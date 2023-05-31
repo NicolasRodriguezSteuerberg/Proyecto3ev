@@ -129,7 +129,11 @@ public class Controller {
      * A la hora de eliminarlo en la base de datos se elimina en el ArrayList tambien
      */
     static void eliminarMedico(String codM, JLabel label){
-        obxH.eliminarHospital(lHospital, codM,label);
+        int auxiliar = lMedico.indexOf(codM);
+        String auxiliarCodigo = lMedico.get(auxiliar).getCodH1();
+        obxM.eliminarMedico(lMedico, codM,label);
+        int nMedicos = obxM.contarMedicos(auxiliarCodigo, label);
+        obxH.modificarNroMedico(lHospital, auxiliarCodigo,nMedicos, label);
     }
 
     /**
