@@ -5,7 +5,6 @@ import Model.GestionBases;
 import Model.MHospital;
 import Model.MMedico;
 import Model.MPaciente;
-
 import javax.swing.*;
 import java.util.ArrayList;
 
@@ -15,9 +14,10 @@ public class Controller {
     static ArrayList<Paciente> lPaciente = new ArrayList();
     static MHospital obxH=new MHospital();
     static MMedico obxM= new MMedico();
-
     static MPaciente obxP= new MPaciente();
 
+
+    //CREAR
     /**
      * Para iniciar los ArrayList al principio del programa
      * recibiendo los valores de la base de datos
@@ -27,17 +27,73 @@ public class Controller {
     }
 
     /**
+     * Crear Paciente
+     * @param codP -> código del paciente
+     * @param nomP -> nombre del paciente
+     * @param codM -> código del médico que lo atiende
+     * Primero se añade el nuevo paciente al array y después se llama a crear paciente
+     */
+    static void crearPaciente(String codP, String nomP,String codM, JLabel label){
+        lPaciente.add(new Paciente(codP,nomP,codM));
+        obxP.crearPaciente(lPaciente, label);
+    }
+
+    /**
+     * Crear médico
+     * @param codM -> código del médico
+     * @param nomM -> nombre del médico
+     * @param codH -> código del hospital donde trabaja el médico
+     * Primero creamos el médico en el array para luego crear ell médico
+     */
+    static void crearMedico(String codM, String nomM,String codH, JLabel label){
+        lMedico.add(new Medico(codM,nomM,codH));
+        obxM.crearMedico(lMedico, label);
+        int nMedicos = obxM.contarMedicos(codH, label);
+        obxH.modificarNroMedico(lHospital, codH,nMedicos, label);
+    }
+
+    /**
      * Crear hospital
      * @param codH -> codigo hospital
      * @param nombreH -> nombre del hospital
      * @param tipoH -> tipo del hospital
      * @param nroHabitaciones -> numero habitaciones
      * @param label -> etiqueta de la interfaz para mostrar mensajes
+     * Primero contamos los médicos que tienen su código, normalmente al principio será 0
+     * Seguido de esto añadimos el hospital al ArrayList y creamos el hospital en la base de datos
      */
     static void crearHospital(String codH, String nombreH, String tipoH, int nroHabitaciones, JLabel label){
         int nroMedico = obxM.contarMedicos(codH,label);
         lHospital.add(new Hospital(codH, nombreH, tipoH, nroMedico, nroHabitaciones));
         obxH.crearHospital(lHospital, label);
+    }
+
+
+    //MODIFICACIONES
+    /**
+     * Modificar Paciente
+     * @param codP -> código del paciente
+     * @param nomP -> nombre del paciente
+     * @param codM -> codigo del médico que lo atiende
+     * @param label -> etiqueta de la interfaz para mostrar mensajes
+     * Primero modificamos el ArrayList y seguido de esto la base de datos
+     */
+    static void modificarPaciente(String codP,String nomP,String codM, JLabel label){
+        obxP.modificarArray(lPaciente,codP,nomP,codM);
+        obxP.modificarPaciente(lPaciente,codP,label);
+    }
+
+    /**
+     * Modificar Médico
+     * @param codM -> código del médico
+     * @param nomM -> nombre del médico
+     * @param codH -> codigo del hospital donde pertenece
+     * @param label -> etiqueta de la interfaz para mostrar mensajes
+     * Primero modificamos el ArrayList y seguido de esto la base de datos
+     */
+    static void modificarMedico(String codM,String nomM,String codH, JLabel label){
+        obxM.modificarArray(lMedico,codM,nomM,codH);
+        obxM.modificarMedico(lMedico,codM,label);
     }
 
     /**
@@ -47,82 +103,42 @@ public class Controller {
      * @param tipoH -> tipo del hospital
      * @param nroHabitaciones -> numero habitaciones
      * @param label -> etiqueta de la interfaz para mostrar mensajes
+     * Primero modificamos el ArrayList y seguido de esto la base de datos
      */
     static void modificarHospital(String codH, String nombreH, String tipoH, int nroHabitaciones, JLabel label){
         obxH.modificarArray(lHospital, codH, nombreH, tipoH, nroHabitaciones);
         obxH.modificarHospital(lHospital, codH, label);
     }
 
+
+    //ELIMINAR DATOS
     /**
-     * Borrar hospital
-     * @param codH -> codigo del hospital
+     * Borrar paciente
+     * @param codP -> codigo del paciente
      * @param label -> etiqueta de la interfaz para mostrar mensajes
+     * A la hora de eliminarlo en la base de datos se elimina en el ArrayList tambien
      */
-    static void eliminarHospital(String codH, JLabel label){
-        obxH.eliminarHospital(lHospital, codH,label);
-    }
-
-    /**
-     *Crear médico
-     * @param codM -> código del médico
-     * @param nomM -> nombre del médico
-     * @param codH -> código del hospital donde trabaja el médico
-     */
-    static void crearMedico(String codM, String nomM,String codH){
-        lMedico.add(new Medico(codM,nomM,codH));
-
-    }
-
-    /**
-     * Modificar Médico
-     * @param codM -> código del médico
-     * @param nomM -> nombre del médico
-     * @param codH -> codigo del hospital donde pertenece
-     * @param label -> etiqueta de la interfaz para mostrar mensajes
-     */
-    static void modificarMedico(String codM,String nomM,String codH, JLabel label){
-        obxM.modificarArray(lMedico,codM,nomM,codH);
-        obxM.modificarMedico(lMedico,codM,label);
+    static void eliminarPaciente(String codP, JLabel label){
+        obxP.eliminarPaciente(lPaciente, codP,label);
     }
 
     /**
      * Borrar médico
      * @param codM -> codigo del medico
      * @param label -> etiqueta de la interfaz para mostrar mensajes
+     * A la hora de eliminarlo en la base de datos se elimina en el ArrayList tambien
      */
     static void eliminarMedico(String codM, JLabel label){
         obxH.eliminarHospital(lHospital, codM,label);
     }
 
     /**
-     * Crear Paciente
-     * @param codP -> código del paciente
-     * @param nomP -> nombre del paciente
-     * @param codM -> código del médico que lo atiende
-     */
-    static void crearPaciente(String codP, String nomP,String codM){
-        lPaciente.add(new Paciente(codP,nomP,codM));
-
-    }
-
-    /**
-     * Modificar Paciente
-     * @param codP -> código del paciente
-     * @param nomP -> nombre del paciente
-     * @param codM -> codigo del médico que lo atiende
+     * Borrar hospital
+     * @param codH -> codigo del hospital
      * @param label -> etiqueta de la interfaz para mostrar mensajes
+     * A la hora de eliminarlo en la base de datos se elimina en el ArrayList tambien
      */
-    static void modificarPaciente(String codP,String nomP,String codM, JLabel label){
-        obxP.modificarArray(lPaciente,codP,nomP,codM);
-        obxP.modificarPaciente(lPaciente,codP,label);
-    }
-
-    /**
-     * Borrar paciente
-     * @param codP -> codigo del paciente
-     * @param label -> etiqueta de la interfaz para mostrar mensajes
-     */
-    static void eliminarPaciente(String codP, JLabel label){
-        obxP.eliminarPaciente(lPaciente, codP,label);
+    static void eliminarHospital(String codH, JLabel label){
+        obxH.eliminarHospital(lHospital, codH,label);
     }
 }

@@ -3,7 +3,6 @@ package Model;
 import Clases.Hospital;
 import Clases.Medico;
 import Clases.Paciente;
-
 import java.sql.*;
 import java.util.ArrayList;
 

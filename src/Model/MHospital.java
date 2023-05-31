@@ -6,15 +6,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
 import Clases.Hospital;
-import com.nicosteuerberg.*;
 import com.nicosteuerberg.datos.VentanaLabel;
 
 public class MHospital{
     GestionBases auxCon= new GestionBases();
     int numeroAModificar;
     int verificacion;
+
     /**
      * Método para crear un hospital en la base de datos
      * @param lista -> ArrayList de tipo Hospital con el que vamos a añadir un hospital
