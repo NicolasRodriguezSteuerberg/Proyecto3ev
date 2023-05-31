@@ -1,13 +1,10 @@
 package Model;
 
 import java.awt.*;
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import Clases.Medico;
 import Clases.Paciente;
 import com.nicosteuerberg.datos.VentanaLabel;
 
@@ -77,6 +74,7 @@ public class MPaciente{
      */
     public void eliminarPaciente(ArrayList<Paciente>lista,String codP, JLabel label){
         numeroAModificar=lista.indexOf(codP);
+        lista.remove(numeroAModificar);
         try {
             Connection con = auxCon.conectar();
             PreparedStatement ps = con.prepareStatement("DELETE FROM paciente WHERE codP=?");
