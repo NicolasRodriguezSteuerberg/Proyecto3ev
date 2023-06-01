@@ -5,19 +5,13 @@ import Controller.Controller;
 import javax.swing.JPanel;
 
 public class IMenu extends javax.swing.JFrame {
-
-    JPanel pHospital;
-    Controller miController = new Controller();
+    Controller miController;
 
     /**
      * Creates new form IMenu
      */
     public IMenu() {
         initComponents();
-        pHospital = new pHospital();
-        pHospital.setBounds(0, 0, 1280, 720);
-        add(pHospital);
-        pHospital.setVisible(false);
     }
 
     /**
@@ -147,6 +141,7 @@ public class IMenu extends javax.swing.JFrame {
             }
         });
     }
+
 
 
 

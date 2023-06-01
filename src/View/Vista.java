@@ -1,15 +1,27 @@
 package View;
 
+import Controller.Controller;
+
 import javax.swing.*;
 
 public class Vista {
+    Controller miController = new Controller();
     public static final int panelMenu = 0;
     public static final int panelHospital = 1;
     public static final int panelMedico = 2;
     public static final int panelPaciente = 3;
 
-    JPanel pMenu, pHospital, pMedico, pPaciente;
-    IMenu ventana = new IMenu();
+    static JPanel pMenu, pHospital, pMedico, pPaciente;
+    static IMenu ventana = new IMenu();
+
+    public Vista() {
+        crearPaneles();
+        ventana.setVisible(true);
+    }
+
+    public Controller recibirController(){
+        return miController;
+    }
 
     public void crearPaneles(){
         pMenu = ventana.pMenu;
@@ -19,6 +31,7 @@ public class Vista {
         ventana.add(pHospital);
         pHospital.setVisible(false);
 
+        /*
         pMedico = new pMedico();
         pMedico.setBounds(0, 0, 1280, 720);
         ventana.add(pMedico);
@@ -28,36 +41,36 @@ public class Vista {
         pPaciente.setBounds(0, 0, 1280, 720);
         ventana.add(pPaciente);
         pPaciente.setVisible(false);
-
+        */
 
     }
 
-    public void quitarPaneles(){
+    static void quitarPaneles(){
         pMenu.setVisible(false);
-        pHospital.setVisible(false);
+        pHospital.setVisible(false);/*
         pMedico.setVisible(false);
-        pPaciente.setVisible(false);
+        pPaciente.setVisible(false);*/
     }
 
-    public void visualizarMenu(){
+    public static void visualizarMenu(){
         ventana.setBounds(0,0,400,300);
         quitarPaneles();
         pMenu.setVisible(true);
     }
 
-    public void visualizarHospital(){
+    public static void visualizarHospital(){
         ventana.setBounds(0,0,1280,720);
         quitarPaneles();
         pHospital.setVisible(true);
     }
 
-    public void visualizarMedico(){
+    public static void visualizarMedico(){
         ventana.setBounds(0,0,1280,720);
         quitarPaneles();
         pMedico.setVisible(true);
     }
 
-    public void visualizarPaciente(){
+    public static void visualizarPaciente(){
         ventana.setBounds(0,0,1280,720);
         quitarPaneles();
         pPaciente.setVisible(true);

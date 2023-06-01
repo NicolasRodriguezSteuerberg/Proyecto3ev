@@ -25,7 +25,7 @@ public class Controller {
      * Para iniciar los ArrayList al principio del programa
      * recibiendo los valores de la base de datos
      */
-    static void crearArrays(){
+    public static void crearArrays(){
         GestionBases.crearArrayList(lHospital, lMedico, lPaciente);
     }
 
@@ -36,7 +36,7 @@ public class Controller {
      * @param codM -> código del médico que lo atiende
      * Primero se añade el nuevo paciente al array y después se llama a crear paciente
      */
-    static void crearPaciente(String codP, String nomP,String codM, JLabel label){
+    public static void crearPaciente(String codP, String nomP,String codM, JLabel label){
         lPaciente.add(new Paciente(codP,nomP,codM));
         obxP.crearPaciente(lPaciente, label);
     }
@@ -48,7 +48,7 @@ public class Controller {
      * @param codH -> código del hospital donde trabaja el médico
      * Primero creamos el médico en el array para luego crear ell médico
      */
-    static void crearMedico(String codM, String nomM,String codH, JLabel label){
+    public static void crearMedico(String codM, String nomM,String codH, JLabel label){
         lMedico.add(new Medico(codM,nomM,codH));
         obxM.crearMedico(lMedico, label);
         int nMedicos = obxM.contarMedicos(codH, label);
@@ -65,7 +65,7 @@ public class Controller {
      * Primero contamos los médicos que tienen su código, normalmente al principio será 0
      * Seguido de esto añadimos el hospital al ArrayList y creamos el hospital en la base de datos
      */
-    static void crearHospital(String codH, String nombreH, String tipoH, int nroHabitaciones, JLabel label){
+    public static void crearHospital(String codH, String nombreH, String tipoH, int nroHabitaciones, JLabel label){
         int nroMedico = obxM.contarMedicos(codH,label);
         lHospital.add(new Hospital(codH, nombreH, tipoH, nroMedico, nroHabitaciones));
         obxH.crearHospital(lHospital, label);
@@ -81,7 +81,7 @@ public class Controller {
      * @param label -> etiqueta de la interfaz para mostrar mensajes
      * Primero modificamos el ArrayList y seguido de esto la base de datos
      */
-    static void modificarPaciente(String codP,String nomP,String codM, JLabel label){
+    public static void modificarPaciente(String codP,String nomP,String codM, JLabel label){
         obxP.modificarArray(lPaciente,codP,nomP,codM);
         obxP.modificarPaciente(lPaciente,codP,label);
     }
@@ -94,7 +94,7 @@ public class Controller {
      * @param label -> etiqueta de la interfaz para mostrar mensajes
      * Primero modificamos el ArrayList y seguido de esto la base de datos
      */
-    static void modificarMedico(String codM,String nomM,String codH, JLabel label){
+    public static void modificarMedico(String codM,String nomM,String codH, JLabel label){
         obxM.modificarArray(lMedico,codM,nomM,codH);
         obxM.modificarMedico(lMedico,codM,label);
     }
@@ -108,7 +108,7 @@ public class Controller {
      * @param label -> etiqueta de la interfaz para mostrar mensajes
      * Primero modificamos el ArrayList y seguido de esto la base de datos
      */
-    static void modificarHospital(String codH, String nombreH, String tipoH, int nroHabitaciones, JLabel label){
+    public static void modificarHospital(String codH, String nombreH, String tipoH, int nroHabitaciones, JLabel label){
         obxH.modificarArray(lHospital, codH, nombreH, tipoH, nroHabitaciones);
         obxH.modificarHospital(lHospital, codH, label);
     }
@@ -121,7 +121,7 @@ public class Controller {
      * @param label -> etiqueta de la interfaz para mostrar mensajes
      * A la hora de eliminarlo en la base de datos se elimina en el ArrayList tambien
      */
-    static void eliminarPaciente(String codP, JLabel label){
+    public static void eliminarPaciente(String codP, JLabel label){
         obxP.eliminarPaciente(lPaciente, codP,label);
     }
 
@@ -131,7 +131,7 @@ public class Controller {
      * @param label -> etiqueta de la interfaz para mostrar mensajes
      * A la hora de eliminarlo en la base de datos se elimina en el ArrayList tambien
      */
-    static void eliminarMedico(String codM, JLabel label){
+    public static void eliminarMedico(String codM, JLabel label){
         int auxiliar = lMedico.indexOf(codM);
         String auxiliarCodigo = lMedico.get(auxiliar).getCodH1();
         obxM.eliminarMedico(lMedico, codM,label);
@@ -145,14 +145,14 @@ public class Controller {
      * @param label -> etiqueta de la interfaz para mostrar mensajes
      * A la hora de eliminarlo en la base de datos se elimina en el ArrayList tambien
      */
-    static void eliminarHospital(String codH, JLabel label){
+    public static void eliminarHospital(String codH, JLabel label){
         obxH.eliminarHospital(lHospital, codH,label);
     }
 
-    public void cambiarPaneles(int numero){
+    public static void cambiarPaneles(int numero){
         switch (numero){
             case Vista.panelMenu:
-                miVista.visualizarMenu();
+               Vista.visualizarMenu();
                 break;
             case Vista.panelHospital:
                 miVista.visualizarHospital();
