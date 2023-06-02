@@ -33,20 +33,18 @@ public class Vista {
         ventana.add(pMedico);
         pMedico.setVisible(false);
 
-        /*
+
         pPaciente = new pPaciente();
         pPaciente.setBounds(0, 0, 1280, 720);
         ventana.add(pPaciente);
         pPaciente.setVisible(false);
-        */
-
     }
 
     static void quitarPaneles(){
         pMenu.setVisible(false);
         pHospital.setVisible(false);
         pMedico.setVisible(false);
-        //pPaciente.setVisible(false);
+        pPaciente.setVisible(false);
     }
 
     public static void visualizarMenu(){
