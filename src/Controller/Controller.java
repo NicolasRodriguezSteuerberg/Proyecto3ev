@@ -6,7 +6,6 @@ import Model.MHospital;
 import Model.MMedico;
 import Model.MPaciente;
 import View.Vista;
-
 import javax.swing.*;
 import java.util.ArrayList;
 
@@ -18,7 +17,6 @@ public class Controller {
     static MMedico obxM= new MMedico();
     static MPaciente obxP= new MPaciente();
     static Vista miVista = new Vista();
-
 
     //CREAR
     /**
