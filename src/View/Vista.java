@@ -19,10 +19,6 @@ public class Vista {
         ventana.setVisible(true);
     }
 
-    public Controller recibirController(){
-        return miController;
-    }
-
     public void crearPaneles(){
         pMenu = ventana.pMenu;
 
@@ -31,12 +27,13 @@ public class Vista {
         ventana.add(pHospital);
         pHospital.setVisible(false);
 
-        /*
+
         pMedico = new pMedico();
         pMedico.setBounds(0, 0, 1280, 720);
         ventana.add(pMedico);
         pMedico.setVisible(false);
 
+        /*
         pPaciente = new pPaciente();
         pPaciente.setBounds(0, 0, 1280, 720);
         ventana.add(pPaciente);
@@ -47,13 +44,13 @@ public class Vista {
 
     static void quitarPaneles(){
         pMenu.setVisible(false);
-        pHospital.setVisible(false);/*
+        pHospital.setVisible(false);
         pMedico.setVisible(false);
-        pPaciente.setVisible(false);*/
+        //pPaciente.setVisible(false);
     }
 
     public static void visualizarMenu(){
-        ventana.setBounds(0,0,400,300);
+        ventana.setBounds(0,0,400,350);
         quitarPaneles();
         pMenu.setVisible(true);
     }

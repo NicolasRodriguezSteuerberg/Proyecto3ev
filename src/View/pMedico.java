@@ -3,20 +3,17 @@ package View;
 import Controller.Controller;
 import com.nicosteuerberg.datos.VentanaLabel;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
 import javax.swing.table.TableModel;
 
 /**
  *
  * @author dam1
  */
-public class pHospital extends javax.swing.JPanel {
-    Integer numero;
-
+public class pMedico extends javax.swing.JPanel {
     /**
      * Creates new form pHospital
      */
-    public pHospital() {
+    public pMedico() {
         initComponents();
     }
 
@@ -32,19 +29,18 @@ public class pHospital extends javax.swing.JPanel {
         bVolverMenu = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tHospital = new javax.swing.JTable();
+        lcodM = new javax.swing.JTextField();
+        lnombreM = new javax.swing.JTextField();
         lcodH = new javax.swing.JTextField();
-        lnombreH = new javax.swing.JTextField();
-        lnHabitaciones = new javax.swing.JTextField();
         bCrear = new javax.swing.JButton();
         bModificar = new javax.swing.JButton();
         bBorrar = new javax.swing.JButton();
         bVaciar = new javax.swing.JButton();
-        eCodh = new javax.swing.JLabel();
+        eCodm = new javax.swing.JLabel();
         eNomH = new javax.swing.JLabel();
-        eTipoH = new javax.swing.JLabel();
         eNHabitaciones = new javax.swing.JLabel();
         eMensaje = new javax.swing.JLabel();
-        cTipoH = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(23, 165, 199));
         setMaximumSize(new java.awt.Dimension(1280, 720));
@@ -68,14 +64,14 @@ public class pHospital extends javax.swing.JPanel {
 
                 },
                 new String [] {
-                        "codH", "nombreH", "tipoH", "nºMedicos", "nºHabitaciones"
+                        "codM", "nombreM", "codH1"
                 }
         ) {
             Class[] types = new Class [] {
-                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                    false, false, false, false, false
+                    false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -101,35 +97,33 @@ public class pHospital extends javax.swing.JPanel {
             tHospital.getColumnModel().getColumn(0).setResizable(false);
             tHospital.getColumnModel().getColumn(1).setResizable(false);
             tHospital.getColumnModel().getColumn(2).setResizable(false);
-            tHospital.getColumnModel().getColumn(3).setResizable(false);
-            tHospital.getColumnModel().getColumn(4).setResizable(false);
         }
+
+        lcodM.setBackground(new java.awt.Color(204, 255, 255));
+        lcodM.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
+        lcodM.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        lcodM.setToolTipText("Solo 3 caracteres. No se pueden repetir");
+        lcodM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                lcodMKeyTyped(evt);
+            }
+        });
+
+        lnombreM.setBackground(new java.awt.Color(204, 255, 255));
+        lnombreM.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
+        lnombreM.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        lnombreM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                lnombreMKeyTyped(evt);
+            }
+        });
 
         lcodH.setBackground(new java.awt.Color(204, 255, 255));
         lcodH.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
         lcodH.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        lcodH.setToolTipText("Solo 3 caracteres. No se pueden repetir");
         lcodH.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 lcodHKeyTyped(evt);
-            }
-        });
-
-        lnombreH.setBackground(new java.awt.Color(204, 255, 255));
-        lnombreH.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
-        lnombreH.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        lnombreH.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                lnombreHKeyTyped(evt);
-            }
-        });
-
-        lnHabitaciones.setBackground(new java.awt.Color(204, 255, 255));
-        lnHabitaciones.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
-        lnHabitaciones.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        lnHabitaciones.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                lnHabitacionesKeyTyped(evt);
             }
         });
 
@@ -169,66 +163,62 @@ public class pHospital extends javax.swing.JPanel {
             }
         });
 
-        eCodh.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        eCodh.setForeground(new java.awt.Color(255, 255, 255));
-        eCodh.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eCodh.setText("Código del hospital");
-        eCodh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        eCodm.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
+        eCodm.setForeground(new java.awt.Color(255, 255, 255));
+        eCodm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eCodm.setText("Código del médico");
+        eCodm.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         eNomH.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         eNomH.setForeground(new java.awt.Color(255, 255, 255));
         eNomH.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eNomH.setText("Nombre del hospital");
+        eNomH.setText("Nombre del médico");
         eNomH.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        eTipoH.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
-        eTipoH.setForeground(new java.awt.Color(255, 255, 255));
-        eTipoH.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eTipoH.setText("Tipo del hospital");
-        eTipoH.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         eNHabitaciones.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         eNHabitaciones.setForeground(new java.awt.Color(255, 255, 255));
         eNHabitaciones.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eNHabitaciones.setText("Nº de habitaciones");
+        eNHabitaciones.setText("Código del hospital");
         eNHabitaciones.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         eMensaje.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
         eMensaje.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         eMensaje.setRequestFocusEnabled(false);
 
-        cTipoH.setBackground(new java.awt.Color(204, 255, 255));
-        cTipoH.setFont(new java.awt.Font("Liberation Sans", 0, 12)); // NOI18N
-        cTipoH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "publico", "privado" }));
+        jLabel1.setFont(new java.awt.Font("Nimbus Mono PS", 1, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 102, 153));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Mi Sergas");
+        jLabel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 102, 153), 2, true));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(65, 65, 65)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
+                                                .addContainerGap(65, Short.MAX_VALUE)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(eMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(22, 22, 22)
+                                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(82, 82, 82)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(eCodm, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(eNomH, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addComponent(lcodM, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(92, 92, 92)
+                                                                .addComponent(lnombreM, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addGap(92, 92, 92)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addComponent(lcodH, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(eCodh, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(lnombreH, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(eNomH, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addGap(127, 127, 127)
-                                                                .addComponent(eTipoH, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addGap(127, 127, 127)
-                                                                .addComponent(cTipoH, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addGap(127, 127, 127)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(lnHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addComponent(eNHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addComponent(eMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(eNHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(30, 30, 30)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(bModificar, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
@@ -241,21 +231,25 @@ public class pHospital extends javax.swing.JPanel {
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(bVolverMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(bVolverMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                                        .addComponent(eNHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(eNomH, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(eCodm, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(26, 26, 26))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGap(24, 24, 24)
+                                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(eNHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(eTipoH, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(eNomH, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(eCodh, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(26, 26, 26)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(lcodM, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lnombreM, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(lcodH, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lnombreH, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lnHabitaciones, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(bVaciar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cTipoH, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(bVaciar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                                 .addComponent(eMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
@@ -274,35 +268,37 @@ public class pHospital extends javax.swing.JPanel {
     private void tHospitalMouseClicked(java.awt.event.MouseEvent evt) {
         int fila = tHospital.getSelectedRow();
         TableModel model = tHospital.getModel();
-        lcodH.setText(model.getValueAt(fila, 0).toString());
-        lnombreH.setText(model.getValueAt(fila, 1).toString());
-        cTipoH.setSelectedItem(model.getValueAt(fila, 2).toString());
-        lnHabitaciones.setText(model.getValueAt(fila, 3).toString());
+        lcodM.setText(model.getValueAt(fila, 0).toString());
+        lnombreM.setText(model.getValueAt(fila, 1).toString());
+        lcodH.setText(model.getValueAt(fila, 2).toString());
     }
 
     private void bVaciarActionPerformed(java.awt.event.ActionEvent evt) {
+        lcodM.setText("");
+        lnombreM.setText("");
         lcodH.setText("");
-        lnombreH.setText("");
-        lnHabitaciones.setText("");
     }
 
     private void bCrearActionPerformed(java.awt.event.ActionEvent evt) {
-        try {
-            numero = Integer.parseInt(lnHabitaciones.getText());
-        }catch (Exception e){}
-
-        if(lcodH.getText().equals("") || lnHabitaciones.getText().equals("") || lnombreH.getText().equals("")){
+        if(lcodM.getText().equals("") || lcodH.getText().equals("") || lnombreM.getText().equals("")){
             VentanaLabel.mensajeLabel("LOS CAMPOS NO PUEDEN ESTAR VACIOS, RELLENELOS Y VUELVA A INTENTARLO", eMensaje, Color.red);
-        }
-        else if(numero == null){
-            VentanaLabel.mensajeLabel("EL NUMERO DE HABITACIONES NO PUEDE CONTENER LETRAS O SIGNOS", eMensaje, Color.red);
         }
         else{
             VentanaLabel.mensajeLabel("", eMensaje, Color.red);
-            Controller.crearHospital(lcodH.getText(),lnombreH.getText(),cTipoH.getSelectedItem().toString(),numero,eMensaje);
-            System.out.println("dfbdsbfjd");
+            Controller.crearMedico(lcodM.getText(),lnombreM.getText(), lcodH.getText(),eMensaje);
         }
+    }
 
+    private void lcodMKeyTyped(java.awt.event.KeyEvent evt) {
+        if(lcodM.getText().length() >= 3){
+            evt.consume();
+        }
+    }
+
+    private void lnombreMKeyTyped(java.awt.event.KeyEvent evt) {
+        if(lnombreM.getText().length() >= 20){
+            evt.consume();
+        }
     }
 
     private void lcodHKeyTyped(java.awt.event.KeyEvent evt) {
@@ -311,39 +307,21 @@ public class pHospital extends javax.swing.JPanel {
         }
     }
 
-    private void lnombreHKeyTyped(java.awt.event.KeyEvent evt) {
-        if(lnombreH.getText().length() >= 20){
-            evt.consume();
-        }
-    }
-
-    private void lnHabitacionesKeyTyped(java.awt.event.KeyEvent evt) {
-        if(lnHabitaciones.getText().length() >= 3){
-            evt.consume();
-        }
-    }
-
     private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {
-        try{
-            numero = Integer.parseInt(lnHabitaciones.getText());
-
-            if(lcodH.getText().equals("") || lnHabitaciones.getText().equals("") || lnombreH.getText().equals("")){
-                VentanaLabel.mensajeLabel("LOS CAMPOS NO PUEDEN ESTAR VACIOS, RELLENELOS Y VUELVA A INTENTARLO", eMensaje, Color.red);
-            }
-            else{
-                Controller.modificarHospital(lcodH.getText(), lnombreH.getText(), cTipoH.getSelectedItem().toString(), numero, eMensaje);
-            }
-        }catch(Exception e){
-            VentanaLabel.mensajeLabel("EL NUMERO DE HABITACIONES NO PUEDE CONTENER LETRAS O SIGNOS", eMensaje, Color.red);
+        if(lcodM.getText().equals("") || lcodH.getText().equals("") || lnombreM.getText().equals("")){
+            VentanaLabel.mensajeLabel("LOS CAMPOS NO PUEDEN ESTAR VACIOS, RELLENELOS Y VUELVA A INTENTARLO", eMensaje, Color.red);
+        }
+        else{
+            Controller.modificarMedico(lcodM.getText(), lnombreM.getText(), lcodH.getText(), eMensaje);
         }
     }
 
-    private void bBorrarActionPerformed(ActionEvent evt) {
-        if(lcodH.getText().equals("")){
+    private void bBorrarActionPerformed(java.awt.event.ActionEvent evt) {
+        if(lcodM.getText().equals("")){
             VentanaLabel.mensajeLabel("EL CÓDIGO DEL HOSPITAL NO PUEDE ESTAR VACIO", eMensaje, Color.red);
         }
         else{
-            Controller.eliminarHospital(lcodH.getText(), eMensaje);
+            Controller.eliminarMedico(lcodM.getText(), eMensaje);
         }
     }
 
@@ -359,16 +337,15 @@ public class pHospital extends javax.swing.JPanel {
     private javax.swing.JButton bModificar;
     private javax.swing.JButton bVaciar;
     private javax.swing.JButton bVolverMenu;
-    private javax.swing.JComboBox<String> cTipoH;
-    private javax.swing.JLabel eCodh;
+    private javax.swing.JLabel eCodm;
     private javax.swing.JLabel eMensaje;
     private javax.swing.JLabel eNHabitaciones;
     private javax.swing.JLabel eNomH;
-    private javax.swing.JLabel eTipoH;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lcodH;
-    private javax.swing.JTextField lnHabitaciones;
-    private javax.swing.JTextField lnombreH;
+    private javax.swing.JTextField lcodM;
+    private javax.swing.JTextField lnombreM;
     private javax.swing.JTable tHospital;
     // End of variables declaration
 }
