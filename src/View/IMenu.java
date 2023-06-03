@@ -13,7 +13,6 @@ public class IMenu extends javax.swing.JFrame {
      */
     public IMenu() {
         initComponents();
-        this.setTitle("Sergas Revolution");
     }
 
     /**
@@ -35,6 +34,7 @@ public class IMenu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         pMenu.setBackground(new java.awt.Color(23, 165, 199));
+        pMenu.setName(""); // NOI18N
 
         bMedico.setBackground(new java.awt.Color(0, 102, 153));
         bMedico.setFont(new java.awt.Font("Liberation Sans", 1, 15)); // NOI18N
@@ -90,15 +90,15 @@ public class IMenu extends javax.swing.JFrame {
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(jPanel1Layout.createSequentialGroup()
-                                                                .addGap(145, 145, 145)
-                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                        .addComponent(bPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(bMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                        .addComponent(bHospital, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                                .addGap(140, 140, 140)
+                                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                        .addComponent(bHospital, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                                                        .addComponent(bMedico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(bPaciente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                                                 .addContainerGap()
                                                                 .addComponent(eLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addGap(0, 139, Short.MAX_VALUE))
+                                                .addGap(0, 134, Short.MAX_VALUE))
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                                 .addGap(0, 0, Short.MAX_VALUE)
                                                 .addComponent(eLogo1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))

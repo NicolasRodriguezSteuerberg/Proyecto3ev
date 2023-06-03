@@ -8,7 +8,7 @@ public class App {
     public static void main(String[] args) {
         Controller.crearArrays();
         Controller.anadirObserver();
-        Vista miVista = new Vista();
+        Controller obx = new Controller();
 
     }
 }
