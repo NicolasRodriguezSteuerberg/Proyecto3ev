@@ -1,8 +1,13 @@
 package View;
 
+import Clases.Hospital;
+import Clases.Medico;
+import Clases.Paciente;
 import Controller.Controller;
 import com.nicosteuerberg.datos.VentanaLabel;
 import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
@@ -333,7 +338,24 @@ public class pPaciente extends javax.swing.JPanel {
         Controller.cambiarPaneles(Vista.panelMenu);
     }
 
+    public void añadirFila(ArrayList<Paciente> lista, int posicion){
+        DefaultTableModel mPaciente = (DefaultTableModel) tPaciente.getModel();
+        Paciente[] fPac = {new Paciente(
+                lista.get(posicion).getCodP(),
+                lista.get(posicion).getNomP(),
+                lista.get(posicion).getCodMed1()
+        )};
+        mPaciente.addRow(fPac);
+    }
 
+    public void crear(ArrayList<Paciente> lista){
+        DefaultTableModel mMedico = (DefaultTableModel) tPaciente.getModel();
+        mMedico.setRowCount(0);
+
+        for (int i = 0; i<lista.size(); i++) {
+            añadirFila(lista,i);
+        }
+    }
 
     // Variables declaration - do not modify
     private javax.swing.JButton bBorrar;
@@ -350,6 +372,6 @@ public class pPaciente extends javax.swing.JPanel {
     private javax.swing.JTextField lcodM;
     private javax.swing.JTextField lcodP;
     private javax.swing.JTextField lnombreP;
-    public static javax.swing.JTable tPaciente;
+    private javax.swing.JTable tPaciente;
     // End of variables declaration
 }

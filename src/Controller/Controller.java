@@ -6,13 +6,8 @@ import Model.MHospital;
 import Model.MMedico;
 import Model.MPaciente;
 import View.Vista;
-import View.pHospital;
-import View.pMedico;
-import View.pPaciente;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
-import java.util.Observer;
 
 public class Controller {
     static ArrayList<Hospital> lHospital = new ArrayList();
@@ -22,11 +17,8 @@ public class Controller {
     static MMedico obxM= new MMedico();
     static MPaciente obxP= new MPaciente();
     static Vista miVista = new Vista();
-   // static DefaultTableModel mHospital = (DefaultTableModel) pHospital.tHospital.getModel();
-     static DefaultTableModel mMedico = (DefaultTableModel) pMedico.tMedico.getModel();
-     static DefaultTableModel mPaciente = (DefaultTableModel) pPaciente.tPaciente.getModel();
-    //CREAR
 
+    //CREAR
     public static void anadirObserver(){
         ObserverTablas obxObs=new ObserverTablas();
         obxH.addObserver(obxObs);
@@ -168,7 +160,7 @@ public class Controller {
     public static void cambiarPaneles(int numero){
         switch (numero){
             case Vista.panelMenu:
-               Vista.visualizarMenu();
+               miVista.visualizarMenu();
                 break;
             case Vista.panelHospital:
                 miVista.visualizarHospital();
@@ -186,64 +178,36 @@ public class Controller {
     //Añadir filas en tablas
     /**
      * Añadir un hospital a la tabla
-     * @param numero -> numero de la posición del array a añadir
+     * @param numero -> identificador de a que tabla se indica
+     * @param posicion -> posición del array a añadir
      */
-    public static void añadirFilaHospital(int numero){
-        DefaultTableModel mHospital = (DefaultTableModel) pHospital.tHospital.getModel();
-        Hospital[] fHosp = {new Hospital(
-                        lHospital.get(numero).getCodH(),
-                        lHospital.get(numero).getNombreH(),
-                        lHospital.get(numero).getTipoH(),
-                        lHospital.get(numero).getNroMedicos(),
-                        lHospital.get(numero).getNroHabitaciones()
-                )};
-        mHospital.addRow(fHosp);
+    public static void añadirFila(int numero,int posicion){
+        switch (numero){
+            case Vista.TABLAHOSPITAL:
+                miVista.añadirFila(lHospital, posicion, Vista.TABLAHOSPITAL);
+                break;
+            case Vista.TABLAMEDICO:
+                miVista.añadirFila(lMedico, numero, Vista.TABLAMEDICO);
+                break;
+            case Vista.TABLAPACIENTE:
+                miVista.añadirFila(lPaciente, numero, Vista.TABLAPACIENTE);
+                break;
+        }
+
     }
 
-    /**
-     * Añadir un medico a la tabla
-     * @param numero -> numero de la posición del array a añadir
-     */
-    public static void añadirFilaMedico(int numero){
-        Medico[] fMed = {new Medico(
-                lMedico.get(numero).getCodP(),
-                lMedico.get(numero).getNomP(),
-                lMedico.get(numero).getCodH1()
-                )};
-        mMedico.addRow(fMed);
-    }
-
-    /**
-     * Añadir un paciente a la tabla
-     * @param numero -> numero de la posición del array a añadir
-     */
-    public static void añadirFilaPaciente(int numero){
-        Paciente[] fPac = {new Paciente(
-                        lPaciente.get(numero).getCodP(),
-                        lPaciente.get(numero).getNomP(),
-                        lPaciente.get(numero).getCodMed1()
-                )};
-        mPaciente.addRow(fPac);
-    }
-
-    public static void crearTablaHospital(){
-        //mHospital.setRowCount(0);
-        for (int i = 0; i<lHospital.size(); i++) {
-            añadirFilaHospital(i);
+    public static void crearTabla(int numero){
+        switch (numero){
+            case Vista.TABLAHOSPITAL:
+                miVista.crearTabla(lHospital, Vista.TABLAHOSPITAL);
+                break;
+            case Vista.TABLAMEDICO:
+                miVista.crearTabla(lMedico, Vista.TABLAMEDICO);
+                break;
+            case Vista.TABLAPACIENTE:
+                miVista.crearTabla(lPaciente, Vista.TABLAPACIENTE);
+                break;
         }
     }
 
-    public static void crearTablaMedico(){
-        mMedico.setRowCount(0);
-        for (int i = 0; i<lMedico.size(); i++) {
-            añadirFilaMedico(i);
-        }
-    }
-
-    public static void crearTablaPaciente(){
-        mPaciente.setRowCount(0);
-        for (int i = 0; i<lPaciente.size(); i++) {
-            añadirFilaPaciente(i);
-        }
-    }
 }
