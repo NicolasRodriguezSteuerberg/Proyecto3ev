@@ -17,19 +17,19 @@ public class ObserverTablas implements Observer {
         aux = arg.toString();
         if(aux.contains("hospital")){
             if(aux.contains("1")) {
-                Controller.añadirFilaHospital((Controller.lHospital.size()-1));
+                Controller.añadirFilaHospital(Controller.lHospital.size()-1);
             } else {
                 Controller.crearTablaHospital();
             }
         } else if (aux.equals("medico")) {
             if(aux.contains("1")) {
-                Controller.añadirFilaMedico((Controller.lMedico.size()-1));
+                Controller.añadirFilaMedico(Controller.lMedico.size()-1);
             } else {
                 Controller.crearTablaMedico();
             }
         } else {
             if(aux.contains("1")) {
-                Controller.añadirFilaPaciente((Controller.lPaciente.size()-1));
+                Controller.añadirFilaPaciente(Controller.lPaciente.size()-1);
             } else {
                 Controller.crearTablaPaciente();
             }
