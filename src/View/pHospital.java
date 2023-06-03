@@ -369,6 +369,6 @@ public class pHospital extends javax.swing.JPanel {
     private javax.swing.JTextField lcodH;
     private javax.swing.JTextField lnHabitaciones;
     private javax.swing.JTextField lnombreH;
-    private javax.swing.JTable tHospital;
+    public static javax.swing.JTable tHospital;
     // End of variables declaration
 }

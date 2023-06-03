@@ -6,10 +6,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Observable;
+
 import Clases.Hospital;
 import com.nicosteuerberg.datos.VentanaLabel;
 
-public class MHospital{
+public class MHospital extends Observable {
     GestionBases auxCon= new GestionBases();
     int numeroAModificar;
     int verificacion;
@@ -33,6 +35,9 @@ public class MHospital{
             ps.executeUpdate();
 
             VentanaLabel.mensajeLabel("Hospital añadido", label, Color.black);
+
+            setChanged();
+            notifyObservers("hospital1");
 
         }catch (SQLException e){
             VentanaLabel.mensajeLabel("ERROR a la hora de hacer el insert", label, Color.red);
@@ -62,6 +67,8 @@ public class MHospital{
             }
             else{
                 VentanaLabel.mensajeLabel("Hospital modificado",label,Color.black);
+                setChanged();
+                notifyObservers("hospital2");
             }
 
         } catch (SQLException e) {
@@ -76,8 +83,6 @@ public class MHospital{
      * @param label -> etiqueta de la interfaz para mostrar los mensajes
      */
     public void eliminarHospital(ArrayList<Hospital> lista, String codH, JLabel label){
-        numeroAModificar = lista.indexOf(codH);
-        lista.remove(numeroAModificar);
         try {
             Connection con = auxCon.conectar();
             PreparedStatement ps = con.prepareStatement("delete from hospital where nif=?");
@@ -90,16 +95,18 @@ public class MHospital{
                 VentanaLabel.mensajeLabel("No existe el hospital con el código: " + codH,label,Color.red);
             }
             else{
+                numeroAModificar = lista.indexOf(codH);
+                lista.remove(numeroAModificar);
+
                 VentanaLabel.mensajeLabel("Hospital eliminado", label, Color.black);
+
+                setChanged();
+                notifyObservers("hospital3");
             }
 
         }catch (SQLException e){
             VentanaLabel.mensajeLabel("ERROR en el borrado del hospital", label, Color.red);
         }
-    }
-
-    public void cambiarTabla(ArrayList<Hospital> lista, JTable tabla){
-
     }
 
     /**
