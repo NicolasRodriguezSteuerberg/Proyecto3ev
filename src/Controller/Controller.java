@@ -9,7 +9,6 @@ import View.Vista;
 import View.pHospital;
 import View.pMedico;
 import View.pPaciente;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
@@ -153,7 +152,6 @@ public class Controller {
     public static void eliminarHospital(String codH, JLabel label){
         obxH.eliminarHospital(lHospital, codH,label);
     }
-
     /**
      * Cambiar el panel de la IU
      * @param numero -> numero para saber a que panel cambiar
@@ -175,7 +173,7 @@ public class Controller {
 
         }
     }
-
+  
     //Añadir filas en tablas
     /**
      * Añadir un hospital a la tabla
@@ -241,5 +239,4 @@ public class Controller {
             añadirFilaPaciente(i);
         }
     }
-
 }
