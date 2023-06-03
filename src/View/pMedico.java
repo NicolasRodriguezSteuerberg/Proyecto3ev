@@ -66,7 +66,7 @@ public class pMedico extends javax.swing.JPanel {
                 new Object [][] {
 
                 },
-                new String [] {
+                new Object [] {
                         "codM", "nombreM", "codH1"
                 }
         ) {
@@ -329,11 +329,11 @@ public class pMedico extends javax.swing.JPanel {
 
     public void añadirFila(ArrayList<Medico> lista, int posicion){
         DefaultTableModel mMedico = (DefaultTableModel) tMedico.getModel();
-        Medico[] fMed = {new Medico(
+        Object[] fMed = {
                 lista.get(posicion).getCodP(),
                 lista.get(posicion).getNomP(),
                 lista.get(posicion).getCodH1()
-        )};
+        };
         mMedico.addRow(fMed);
     }
 

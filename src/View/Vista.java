@@ -18,7 +18,6 @@ public class Vista {
     pHospital pH = new pHospital();
     pMedico pM = new pMedico();
     pPaciente pP = new pPaciente();
-
     IMenu ventana = new IMenu();
 
     public Vista() {
