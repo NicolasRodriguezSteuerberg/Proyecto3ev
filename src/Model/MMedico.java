@@ -7,8 +7,9 @@ import Clases.Medico;
 import com.nicosteuerberg.datos.VentanaLabel;
 import javax.swing.*;
 import java.sql.*;
+import java.util.Observable;
 
-public class MMedico{
+public class MMedico extends Observable {
     GestionBases auxCon= new GestionBases();
     int verificacion;
     int numeroAModificar;
@@ -31,10 +32,8 @@ public class MMedico{
             ps.executeUpdate();
 
             VentanaLabel.mensajeLabel("Médico añadido", label, Color.black);
-
-            /**ToDO
-             * Modificar el numero de médicos de un hospital
-             */
+            setChanged();
+            notifyObservers("medico1");
 
         } catch (SQLException e) {
             VentanaLabel.mensajeLabel("ERROR a la hora de hacer el insert",label,Color.red);
@@ -62,6 +61,8 @@ public class MMedico{
                 VentanaLabel.mensajeLabel("No existe el medico con el codigo "+codM,label,Color.red);
             }else {
                 VentanaLabel.mensajeLabel("Medico modificado", label, Color.black);
+                setChanged();
+                notifyObservers("medico2");
             }
 
         }catch(SQLException e){
@@ -76,8 +77,6 @@ public class MMedico{
      * @param label -> etiqueta de la interfaz para mostrar los mensajes
      */
     public void eliminarMedico(ArrayList<Medico>lista,String codM, JLabel label){
-        numeroAModificar=lista.indexOf(codM);
-        lista.remove(numeroAModificar);
         try {
             Connection con = auxCon.conectar();
             PreparedStatement ps = con.prepareStatement("DELETE FROM medico WHERE codM=?");
@@ -90,8 +89,13 @@ public class MMedico{
                 VentanaLabel.mensajeLabel(" No existe el médico con tal codigo",label,Color.red);
 
             }else{
+                numeroAModificar=lista.indexOf(codM);
+                lista.remove(numeroAModificar);
+
                 VentanaLabel.mensajeLabel("Médico eliminado",label,Color.black);
 
+                setChanged();
+                notifyObservers("medico3");
             }
 
         }catch(SQLException e){

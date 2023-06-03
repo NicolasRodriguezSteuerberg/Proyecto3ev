@@ -5,12 +5,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Observable;
+
 import Clases.Paciente;
 import com.nicosteuerberg.datos.VentanaLabel;
 
 import javax.swing.*;
 
-public class MPaciente{
+public class MPaciente extends Observable {
     GestionBases auxCon= new GestionBases();
     int verificacion;
 
@@ -33,6 +35,9 @@ public class MPaciente{
             ps.executeUpdate();
 
             VentanaLabel.mensajeLabel("Paciente añadido",label, Color.black);
+
+            setChanged();
+            notifyObservers("paciente1");
 
         } catch (SQLException e) {
             VentanaLabel.mensajeLabel("ERROR a la hora de hacer el insert",label,Color.red);
@@ -59,6 +64,8 @@ public class MPaciente{
                 VentanaLabel.mensajeLabel("No existe el paciente con el codigo "+codP,label,Color.red);
             }else {
                 VentanaLabel.mensajeLabel("Paciente modificado", label, Color.black);
+                setChanged();
+                notifyObservers("paciente2");
             }
 
         }catch(SQLException e){
@@ -73,8 +80,6 @@ public class MPaciente{
      * @param label -> etiqueta de la interfaz para mostrar los mensajes
      */
     public void eliminarPaciente(ArrayList<Paciente>lista,String codP, JLabel label){
-        numeroAModificar=lista.indexOf(codP);
-        lista.remove(numeroAModificar);
         try {
             Connection con = auxCon.conectar();
             PreparedStatement ps = con.prepareStatement("DELETE FROM paciente WHERE codP=?");
@@ -85,7 +90,13 @@ public class MPaciente{
             if(verificacion==0){
                 VentanaLabel.mensajeLabel("No existe el paciente con el codigo "+codP,label,Color.red);
             }else {
+                numeroAModificar=lista.indexOf(codP);
+                lista.remove(numeroAModificar);
+
                 VentanaLabel.mensajeLabel("Paciente eliminado", label, Color.black);
+
+                setChanged();
+                notifyObservers("paciente3");
             }
 
         }catch(SQLException e){
