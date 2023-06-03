@@ -1,8 +1,12 @@
 package View;
 
+import Clases.Hospital;
+import Clases.Medico;
 import Controller.Controller;
 import com.nicosteuerberg.datos.VentanaLabel;
 import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
@@ -323,6 +327,24 @@ public class pMedico extends javax.swing.JPanel {
         Controller.cambiarPaneles(Vista.panelMenu);
     }
 
+    public void añadirFila(ArrayList<Medico> lista, int posicion){
+        DefaultTableModel mMedico = (DefaultTableModel) tMedico.getModel();
+        Medico[] fMed = {new Medico(
+                lista.get(posicion).getCodP(),
+                lista.get(posicion).getNomP(),
+                lista.get(posicion).getCodH1()
+        )};
+        mMedico.addRow(fMed);
+    }
+
+    public void crear(ArrayList<Medico> lista){
+        DefaultTableModel mMedico = (DefaultTableModel) tMedico.getModel();
+        mMedico.setRowCount(0);
+
+        for (int i = 0; i<lista.size(); i++) {
+            añadirFila(lista,i);
+        }
+    }
 
 
     // Variables declaration - do not modify
@@ -340,6 +362,6 @@ public class pMedico extends javax.swing.JPanel {
     private javax.swing.JTextField lcodH;
     private javax.swing.JTextField lcodM;
     private javax.swing.JTextField lnombreM;
-    public static javax.swing.JTable tMedico;
+    private javax.swing.JTable tMedico;
     // End of variables declaration
 }

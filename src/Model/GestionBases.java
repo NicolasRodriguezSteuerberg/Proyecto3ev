@@ -4,6 +4,7 @@ import Clases.Hospital;
 import Clases.Medico;
 import Clases.Paciente;
 import Controller.Controller;
+import View.Vista;
 import View.pHospital;
 
 import javax.swing.*;
@@ -43,7 +44,7 @@ public class GestionBases {
 
             while(rs.next()){
                 lHospital.add(new Hospital(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getInt(5)));
-                Controller.añadirFilaHospital(lHospital.size()-1);
+                Controller.añadirFila(Vista.TABLAHOSPITAL,lHospital.size()-1);
             }
 
             //Para los medicos
@@ -52,7 +53,7 @@ public class GestionBases {
 
             while(rs.next()){
                 lMedico.add(new Medico(rs.getString(1),rs.getString(2),rs.getString(3)));
-                Controller.añadirFilaMedico(lMedico.size()-1);
+                Controller.añadirFila(Vista.TABLAMEDICO, lMedico.size()-1);
             }
 
             //Para los pacientes
@@ -61,7 +62,7 @@ public class GestionBases {
 
             while(rs.next()){
                 lPaciente.add(new Paciente(rs.getString(1),rs.getString(2),rs.getString(3)));
-                Controller.añadirFilaPaciente(lPaciente.size()-1);
+                Controller.añadirFila(Vista.TABLAPACIENTE, lPaciente.size()-1);
             }
 
 
