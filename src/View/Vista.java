@@ -18,7 +18,6 @@ public class Vista {
     pHospital pH = new pHospital();
     pMedico pM = new pMedico();
     pPaciente pP = new pPaciente();
-
     IMenu ventana = new IMenu();
 
     public Vista() {
@@ -99,6 +98,35 @@ public class Vista {
                 break;
             case TABLAPACIENTE:
                 pP.crear(lista);
+                break;
+        }
+    }
+
+    public void añadirFila(ArrayList lista, int posicion,int numero){
+        switch (numero){
+            case TABLAHOSPITAL:
+                View.pHospital obxHospital = new pHospital();
+                obxHospital.añadirFila(lista, posicion);
+                break;
+            case TABLAMEDICO:
+                //View.pMedico.añadirFila(lista, posicion);
+                break;
+            case TABLAPACIENTE:
+                //View.pPaciente.añadirFila(lista, posicion);
+                break;
+        }
+    }
+
+    public static void crearTabla(ArrayList lista, int numero){
+        switch (numero){
+            case TABLAHOSPITAL:
+                //View.pHospital.crearTabla(lista);
+                break;
+            case TABLAMEDICO:
+                //View.pMedico.crearTabla(lista);
+                break;
+            case TABLAPACIENTE:
+                //View.pPaciente.crearTabla(lista);
                 break;
         }
     }
