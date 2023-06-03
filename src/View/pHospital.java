@@ -300,7 +300,6 @@ public class pHospital extends javax.swing.JPanel {
         else{
             VentanaLabel.mensajeLabel("", eMensaje, Color.red);
             Controller.crearHospital(lcodH.getText(),lnombreH.getText(),cTipoH.getSelectedItem().toString(),numero,eMensaje);
-            System.out.println("dfbdsbfjd");
         }
 
     }

@@ -12,9 +12,6 @@ import java.util.Observer;
 
 public class ObserverTablas implements Observer {
     String aux;
-    Hospital obxHospital;
-    Medico obxMedico;
-    Paciente obxPaciente;
     @Override
     public void update(Observable o, Object arg) {
         aux = arg.toString();
