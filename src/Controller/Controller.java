@@ -6,7 +6,12 @@ import Model.MHospital;
 import Model.MMedico;
 import Model.MPaciente;
 import View.Vista;
+import View.pHospital;
+import View.pMedico;
+import View.pPaciente;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 
 public class Controller {
@@ -17,7 +22,9 @@ public class Controller {
     static MMedico obxM= new MMedico();
     static MPaciente obxP= new MPaciente();
     static Vista miVista = new Vista();
-
+    static DefaultTableModel mHospital = (DefaultTableModel) pHospital.tHospital.getModel();
+    static DefaultTableModel mMedico = (DefaultTableModel) pMedico.tMedico.getModel();
+    static DefaultTableModel mPaciente = (DefaultTableModel) pPaciente.tPaciente.getModel();
     //CREAR
     /**
      * Para iniciar los ArrayList al principio del programa
@@ -147,6 +154,10 @@ public class Controller {
         obxH.eliminarHospital(lHospital, codH,label);
     }
 
+    /**
+     * Cambiar el panel de la IU
+     * @param numero -> numero para saber a que panel cambiar
+     */
     public static void cambiarPaneles(int numero){
         switch (numero){
             case Vista.panelMenu:
@@ -164,4 +175,71 @@ public class Controller {
 
         }
     }
+
+    //Añadir filas en tablas
+    /**
+     * Añadir un hospital a la tabla
+     * @param numero -> numero de la posición del array a añadir
+     */
+    public static void añadirFilaHospital(int numero){
+        Hospital[] fHosp = new Hospital[pHospital.tHospital.getColumnCount()];
+
+        fHosp[0].setCodH(lHospital.get(numero).getCodH());
+        fHosp[1].setNombreH(lHospital.get(numero).getNombreH());
+        fHosp[2].setTipoH(lHospital.get(numero).getTipoH());
+        fHosp[3].setNroMedicos(lHospital.get(numero).getNroMedicos());
+        fHosp[4].setNroHabitaciones(lHospital.get(numero).getNroHabitaciones());
+
+        mHospital.addRow(fHosp);
+    }
+
+    /**
+     * Añadir un medico a la tabla
+     * @param numero -> numero de la posición del array a añadir
+     */
+    public static void añadirFilaMedico(int numero){
+        Medico[] fMed = new Medico[pMedico.tMedico.getColumnCount()];
+
+        fMed[0].setCodP(lMedico.get(numero).getCodP());
+        fMed[1].setNomP(lMedico.get(numero).getNomP());
+        fMed[2].setCodH1(lMedico.get(numero).getCodH1());
+
+        mMedico.addRow(fMed);
+    }
+
+    /**
+     * Añadir un paciente a la tabla
+     * @param numero -> numero de la posición del array a añadir
+     */
+    public static void añadirFilaPaciente(int numero){
+        Paciente[] fPac = new Paciente[pPaciente.tPaciente.getColumnCount()];
+
+        fPac[0].setCodP(lPaciente.get(numero).getCodP());
+        fPac[1].setNomP(lPaciente.get(numero).getNomP());
+        fPac[2].setCodMed1(lPaciente.get(numero).getCodMed1());
+
+        mPaciente.addRow(fPac);
+    }
+
+    public static void crearTablaHospital(){
+        mHospital.setRowCount(0);
+        for (int i = 0; i<lHospital.size(); i++) {
+            añadirFilaHospital(i);
+        }
+    }
+
+    public static void crearTablaMedico(){
+        mMedico.setRowCount(0);
+        for (int i = 0; i<lMedico.size(); i++) {
+            añadirFilaMedico(i);
+        }
+    }
+
+    public static void crearTablaPaciente(){
+        mPaciente.setRowCount(0);
+        for (int i = 0; i<lPaciente.size(); i++) {
+            añadirFilaPaciente(i);
+        }
+    }
+
 }

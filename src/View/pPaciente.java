@@ -350,6 +350,6 @@ public class pPaciente extends javax.swing.JPanel {
     private javax.swing.JTextField lcodM;
     private javax.swing.JTextField lcodP;
     private javax.swing.JTextField lnombreP;
-    private javax.swing.JTable tPaciente;
+    public static javax.swing.JTable tPaciente;
     // End of variables declaration
 }

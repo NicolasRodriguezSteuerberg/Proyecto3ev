@@ -340,6 +340,6 @@ public class pMedico extends javax.swing.JPanel {
     private javax.swing.JTextField lcodH;
     private javax.swing.JTextField lcodM;
     private javax.swing.JTextField lnombreM;
-    private javax.swing.JTable tMedico;
+    public static javax.swing.JTable tMedico;
     // End of variables declaration
 }
