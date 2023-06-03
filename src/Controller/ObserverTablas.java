@@ -31,7 +31,7 @@ public class ObserverTablas implements Observer {
             if(aux.contains("1")) {
                 Controller.añadirFila(Vista.TABLAPACIENTE,Controller.lPaciente.size()-1);
             } else {
-                //Controller.crearTablaPaciente();
+                Controller.crearTabla(Vista.TABLAPACIENTE);
             }
         }
     }
