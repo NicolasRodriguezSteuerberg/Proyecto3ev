@@ -71,7 +71,7 @@ public class pHospital extends javax.swing.JPanel {
                 new Object [][] {
 
                 },
-                new String [] {
+                new Object [] {
                         "codH", "nombreH", "tipoH", "nºMedicos", "nºHabitaciones"
                 }
         ) {
@@ -356,13 +356,13 @@ public class pHospital extends javax.swing.JPanel {
 
     public void añadirFila(ArrayList<Hospital> lista, int posicion){
         DefaultTableModel mHospital = (DefaultTableModel) tHospital.getModel();
-        Hospital[] fHosp = {new Hospital(
+        Object[] fHosp = {
                 lista.get(posicion).getCodH(),
                 lista.get(posicion).getNombreH(),
                 lista.get(posicion).getTipoH(),
                 lista.get(posicion).getNroMedicos(),
                 lista.get(posicion).getNroHabitaciones()
-        )};
+        };
         mHospital.addRow(fHosp);
     }
 
