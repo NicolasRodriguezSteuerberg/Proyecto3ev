@@ -14,7 +14,10 @@ public class Vista {
     public static final int TABLAHOSPITAL = 0;
     public static final int TABLAMEDICO = 1;
     public static final int TABLAPACIENTE = 3;
-    JPanel pMenu, pHospital, pMedico, pPaciente;
+    JPanel pMenu;
+    pHospital pH = new pHospital();
+    pMedico pM = new pMedico();
+    pPaciente pP = new pPaciente();
     IMenu ventana = new IMenu();
 
     public Vista() {
@@ -25,29 +28,26 @@ public class Vista {
     public void crearPaneles(){
         pMenu = ventana.pMenu;
 
-        pHospital = new pHospital();
-        pHospital.setBounds(0, 0, 1280, 720);
-        ventana.add(pHospital);
-        pHospital.setVisible(false);
+        pH.setBounds(0, 0, 1280, 720);
+        ventana.add(pH);
+        pH.setVisible(false);
 
 
-        pMedico = new pMedico();
-        pMedico.setBounds(0, 0, 1280, 720);
-        ventana.add(pMedico);
-        pMedico.setVisible(false);
+        pM.setBounds(0, 0, 1280, 720);
+        ventana.add(pM);
+        pM.setVisible(false);
 
 
-        pPaciente = new pPaciente();
-        pPaciente.setBounds(0, 0, 1280, 720);
-        ventana.add(pPaciente);
-        pPaciente.setVisible(false);
+        pP.setBounds(0, 0, 1280, 720);
+        ventana.add(pP);
+        pP.setVisible(false);
     }
 
     public void quitarPaneles(){
         pMenu.setVisible(false);
-        pHospital.setVisible(false);
-        pMedico.setVisible(false);
-        pPaciente.setVisible(false);
+        pH.setVisible(false);
+        pM.setVisible(false);
+        pP.setVisible(false);
     }
 
     public void visualizarMenu(){
@@ -59,19 +59,47 @@ public class Vista {
     public void visualizarHospital(){
         ventana.setBounds(0,0,1280,720);
         quitarPaneles();
-        pHospital.setVisible(true);
+        pH.setVisible(true);
     }
 
     public void visualizarMedico(){
         ventana.setBounds(0,0,1280,720);
         quitarPaneles();
-        pMedico.setVisible(true);
+        pM.setVisible(true);
     }
 
     public void visualizarPaciente(){
         ventana.setBounds(0,0,1280,720);
         quitarPaneles();
-        pPaciente.setVisible(true);
+        pP.setVisible(true);
+    }
+
+    public void añadirFila(ArrayList lista, int posicion,int numero){
+        switch (numero){
+            case TABLAHOSPITAL:
+                pH.añadirFila(lista, posicion);
+                break;
+            case TABLAMEDICO:
+                pM.añadirFila(lista, posicion);
+                break;
+            case TABLAPACIENTE:
+                pP.añadirFila(lista, posicion);
+                break;
+        }
+    }
+
+    public void crearTabla(ArrayList lista, int numero){
+        switch (numero){
+            case TABLAHOSPITAL:
+                pH.crear(lista);
+                break;
+            case TABLAMEDICO:
+                pM.crear(lista);
+                break;
+            case TABLAPACIENTE:
+                pP.crear(lista);
+                break;
+        }
     }
 
     public void añadirFila(ArrayList lista, int posicion,int numero){
