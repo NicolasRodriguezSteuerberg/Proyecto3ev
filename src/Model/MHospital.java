@@ -37,7 +37,7 @@ public class MHospital extends Observable {
             VentanaLabel.mensajeLabel("Hospital añadido", label, Color.black);
 
             setChanged();
-            notifyObservers("hospital1");
+            notifyObservers("hospital");
 
         }catch (SQLException e){
             VentanaLabel.mensajeLabel("ERROR a la hora de hacer el insert", label, Color.red);
@@ -54,6 +54,7 @@ public class MHospital extends Observable {
         try {
             Connection con = auxCon.conectar();
             PreparedStatement ps = con.prepareStatement("update hospital set nombreH=?, tipoH=?,nroHabit=? where codH=?");
+            numeroAModificar=lista.indexOf(codH);
 
             ps.setString(1, lista.get(numeroAModificar).getNombreH());
             ps.setString(2,  lista.get(numeroAModificar).getTipoH());
@@ -68,7 +69,7 @@ public class MHospital extends Observable {
             else{
                 VentanaLabel.mensajeLabel("Hospital modificado",label,Color.black);
                 setChanged();
-                notifyObservers("hospital2");
+                notifyObservers("hospital");
             }
 
         } catch (SQLException e) {
@@ -101,7 +102,7 @@ public class MHospital extends Observable {
                 VentanaLabel.mensajeLabel("Hospital eliminado", label, Color.black);
 
                 setChanged();
-                notifyObservers("hospital3");
+                notifyObservers("hospital");
             }
 
         }catch (SQLException e){

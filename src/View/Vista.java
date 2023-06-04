@@ -73,21 +73,6 @@ public class Vista {
         quitarPaneles();
         pP.setVisible(true);
     }
-
-    public void añadirFila(ArrayList lista, int posicion,int numero){
-        switch (numero){
-            case TABLAHOSPITAL:
-                pH.añadirFila(lista, posicion);
-                break;
-            case TABLAMEDICO:
-                pM.añadirFila(lista, posicion);
-                break;
-            case TABLAPACIENTE:
-                pP.añadirFila(lista, posicion);
-                break;
-        }
-    }
-
     public void crearTabla(ArrayList lista, int numero){
         switch (numero){
             case TABLAHOSPITAL:

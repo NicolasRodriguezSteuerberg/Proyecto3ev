@@ -337,23 +337,22 @@ public class pPaciente extends javax.swing.JPanel {
     private void bVolverMenuActionPerformed(java.awt.event.ActionEvent evt) {
         Controller.cambiarPaneles(Vista.panelMenu);
     }
+    public void crear(ArrayList<Paciente>lista){
+        DefaultTableModel modeloTabla=(DefaultTableModel) tPaciente.getModel();
+        modeloTabla.setRowCount(0);
+        int columnas=3;
 
-    public void añadirFila(ArrayList<Paciente> lista, int posicion){
-        DefaultTableModel mPaciente = (DefaultTableModel) tPaciente.getModel();
-        Object[] fPac = {
-                lista.get(posicion).getCodP(),
-                lista.get(posicion).getNomP(),
-                lista.get(posicion).getCodMed1()
-        };
-        mPaciente.addRow(fPac);
-    }
+        try{
+            for (int j=0;j<lista.size();j++){
+                Object[] fila= new Object[columnas];
+                fila[0]=lista.get(j).getCodP();
+                fila[1]=lista.get(j).getNomP();
+                fila[2]=lista.get(j).getCodMed1();
 
-    public void crear(ArrayList<Paciente> lista){
-        DefaultTableModel mMedico = (DefaultTableModel) tPaciente.getModel();
-        mMedico.setRowCount(0);
-
-        for (int i = 0; i<lista.size(); i++) {
-            añadirFila(lista,i);
+                modeloTabla.addRow(fila);
+            }
+        }catch(Exception e){
+            VentanaLabel.mensajeLabel("Error al cargar tabla",eMensaje,Color.red);
         }
     }
 
