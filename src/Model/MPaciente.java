@@ -37,7 +37,7 @@ public class MPaciente extends Observable {
             VentanaLabel.mensajeLabel("Paciente añadido",label, Color.black);
 
             setChanged();
-            notifyObservers("paciente1");
+            notifyObservers("paciente");
 
         } catch (SQLException e) {
             VentanaLabel.mensajeLabel("ERROR a la hora de hacer el insert",label,Color.red);
@@ -65,7 +65,7 @@ public class MPaciente extends Observable {
             }else {
                 VentanaLabel.mensajeLabel("Paciente modificado", label, Color.black);
                 setChanged();
-                notifyObservers("paciente2");
+                notifyObservers("paciente");
             }
 
         }catch(SQLException e){
@@ -96,7 +96,7 @@ public class MPaciente extends Observable {
                 VentanaLabel.mensajeLabel("Paciente eliminado", label, Color.black);
 
                 setChanged();
-                notifyObservers("paciente3");
+                notifyObservers("paciente");
             }
 
         }catch(SQLException e){

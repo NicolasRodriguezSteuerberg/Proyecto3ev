@@ -327,17 +327,19 @@ public class pHospital extends javax.swing.JPanel {
     }
 
     private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {
-        try{
+        try {
             posicion = Integer.parseInt(lnHabitaciones.getText());
+        }catch (Exception e){}
 
-            if(lcodH.getText().equals("") || lnHabitaciones.getText().equals("") || lnombreH.getText().equals("")){
-                VentanaLabel.mensajeLabel("LOS CAMPOS NO PUEDEN ESTAR VACIOS, RELLENELOS Y VUELVA A INTENTARLO", eMensaje, Color.red);
-            }
-            else{
-                Controller.modificarHospital(lcodH.getText(), lnombreH.getText(), cTipoH.getSelectedItem().toString(), posicion, eMensaje);
-            }
-        }catch(Exception e){
+        if(lcodH.getText().equals("") || lnHabitaciones.getText().equals("") || lnombreH.getText().equals("")){
+            VentanaLabel.mensajeLabel("LOS CAMPOS NO PUEDEN ESTAR VACIOS, RELLENELOS Y VUELVA A INTENTARLO", eMensaje, Color.red);
+        }
+        else if(posicion == null){
             VentanaLabel.mensajeLabel("EL NUMERO DE HABITACIONES NO PUEDE CONTENER LETRAS O SIGNOS", eMensaje, Color.red);
+        }
+        else{
+            VentanaLabel.mensajeLabel("", eMensaje, Color.red);
+            Controller.modificarHospital(lcodH.getText(), lnombreH.getText(), cTipoH.getSelectedItem().toString(), posicion, eMensaje);
         }
     }
 
