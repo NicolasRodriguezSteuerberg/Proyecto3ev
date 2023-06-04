@@ -175,26 +175,7 @@ public class Controller {
         }
     }
   
-    //Añadir filas en tablas
-    /**
-     * Añadir un hospital a la tabla
-     * @param numero -> identificador de a que tabla se indica
-     * @param posicion -> posición del array a añadir
-     */
-    public static void añadirFila(int numero,int posicion){
-        switch (numero){
-            case Vista.TABLAHOSPITAL:
-                miVista.añadirFila(lHospital, posicion, Vista.TABLAHOSPITAL);
-                break;
-            case Vista.TABLAMEDICO:
-                miVista.añadirFila(lMedico, numero, Vista.TABLAMEDICO);
-                break;
-            case Vista.TABLAPACIENTE:
-                miVista.añadirFila(lPaciente, numero, Vista.TABLAPACIENTE);
-                break;
-        }
 
-    }
 
     public static void crearTabla(int numero){
         switch (numero){

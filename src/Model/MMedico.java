@@ -33,7 +33,7 @@ public class MMedico extends Observable {
 
             VentanaLabel.mensajeLabel("Médico añadido", label, Color.black);
             setChanged();
-            notifyObservers("medico1");
+            notifyObservers("medico");
 
         } catch (SQLException e) {
             VentanaLabel.mensajeLabel("ERROR a la hora de hacer el insert",label,Color.red);
@@ -62,7 +62,7 @@ public class MMedico extends Observable {
             }else {
                 VentanaLabel.mensajeLabel("Medico modificado", label, Color.black);
                 setChanged();
-                notifyObservers("medico2");
+                notifyObservers("medico");
             }
 
         }catch(SQLException e){
@@ -95,7 +95,7 @@ public class MMedico extends Observable {
                 VentanaLabel.mensajeLabel("Médico eliminado",label,Color.black);
 
                 setChanged();
-                notifyObservers("medico3");
+                notifyObservers("medico");
             }
 
         }catch(SQLException e){
@@ -119,7 +119,7 @@ public class MMedico extends Observable {
             ps.setString(1, codH);
 
             rs=ps.executeQuery();
-            valor = rs.getInt(1);
+            System.out.println(rs.getInt(1));
         }catch(SQLException e){
             VentanaLabel.mensajeLabel("Error al contar los medicos",label,Color.red);
         }

@@ -71,7 +71,7 @@ public class pHospital extends javax.swing.JPanel {
                 new Object [][] {
 
                 },
-                new String [] {
+                new Object [] {
                         "codH", "nombreH", "tipoH", "nºMedicos", "nºHabitaciones"
                 }
         ) {
@@ -354,24 +354,24 @@ public class pHospital extends javax.swing.JPanel {
         Controller.cambiarPaneles(Vista.panelMenu);
     }
 
-    public void añadirFila(ArrayList<Hospital> lista, int posicion){
-        DefaultTableModel mHospital = (DefaultTableModel) tHospital.getModel();
-        Hospital[] fHosp = {new Hospital(
-                lista.get(posicion).getCodH(),
-                lista.get(posicion).getNombreH(),
-                lista.get(posicion).getTipoH(),
-                lista.get(posicion).getNroMedicos(),
-                lista.get(posicion).getNroHabitaciones()
-        )};
-        mHospital.addRow(fHosp);
-    }
+    public void crear(ArrayList<Hospital>lista){
+        DefaultTableModel modeloTabla=(DefaultTableModel) tHospital.getModel();
+        modeloTabla.setRowCount(0);
+        int columnas=5;
 
-    public void crear(ArrayList<Hospital> lista){
-        DefaultTableModel mMedico = (DefaultTableModel) tHospital.getModel();
-        mMedico.setRowCount(0);
+        try{
+            for (int j=0;j<lista.size();j++){
+                Object[] fila= new Object[columnas];
+                fila[0]=lista.get(j).getCodH();
+                fila[1]=lista.get(j).getNombreH();
+                fila[2]=lista.get(j).getTipoH();
+                fila[3]=lista.get(j).getNroMedicos();
+                fila[4]=lista.get(j).getNroHabitaciones();
 
-        for (int i = 0; i<lista.size(); i++) {
-            añadirFila(lista,i);
+                modeloTabla.addRow(fila);
+            }
+        }catch(Exception e){
+            VentanaLabel.mensajeLabel("Error al cargar tabla",eMensaje,Color.red);
         }
     }
 
