@@ -19,6 +19,10 @@ public class Controller {
     static Vista miVista = new Vista();
 
     //CREAR
+
+    /**
+     * método que crea los observers
+     */
     public static void anadirObserver(){
         ObserverTablas obxObs=new ObserverTablas();
         obxH.addObserver(obxObs);
@@ -60,6 +64,7 @@ public class Controller {
      * @param nomM -> nombre del médico
      * @param codH -> código del hospital donde trabaja el médico
      * Primero creamos el médico en el array para luego crear ell médico
+     * Cambio de número medicos por haber añadido un médico
      */
     public static void crearMedico(String codM, String nomM,String codH, JLabel label){
         int flag=0;
@@ -121,6 +126,7 @@ public class Controller {
      * @param codH -> codigo del hospital donde pertenece
      * @param label -> etiqueta de la interfaz para mostrar mensajes
      * Primero modificamos el ArrayList y seguido de esto la base de datos
+     * Cambio de número medicos por posibilidad de su cambio
      */
     public static void modificarMedico(String codM,String nomM,String codH, JLabel label){
         obxM.modificarArray(lMedico,codM,nomM,codH);
@@ -196,9 +202,11 @@ public class Controller {
 
         }
     }
-  
 
-
+    /**
+     * Método para crear/modificar las tablas
+     * @param numero -> numero para identificar en que tabla se va a hacer
+     */
     public static void crearTabla(int numero){
         switch (numero){
             case Vista.TABLAHOSPITAL:

@@ -31,6 +31,12 @@ public class GestionBases {
         return cx;
     }
 
+    /**
+     * Método para crear los ArrayList al principio del programa
+     * @param lHospital -> ArrayList de hospital
+     * @param lMedico -> ArrayList de médico
+     * @param lPaciente -> ArrayList de paciente
+     */
     public void crearArrayList(ArrayList<Hospital> lHospital, ArrayList<Medico> lMedico, ArrayList<Paciente> lPaciente){
         PreparedStatement ps;
         ResultSet rs;

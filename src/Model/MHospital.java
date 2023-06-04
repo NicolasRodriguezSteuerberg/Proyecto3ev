@@ -141,8 +141,6 @@ public class MHospital extends Observable {
     /**
      * Metodo para modificar el numero de médicos cuando se añada un médico o se modifique
      * @param lista -> ArrayList de tipo hospital con los datos
-     * @param codH -> código del hospital
-     * @param numeroMedico -> numero de médicos
      * @param label -> etiqueta de la interfaz para mostrar los mensajes
      */
 

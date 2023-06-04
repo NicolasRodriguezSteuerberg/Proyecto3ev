@@ -76,6 +76,12 @@ public class Vista {
         pP.eMensaje.setText("");
         pP.setVisible(true);
     }
+
+    /**
+     * Método para crear la tabla
+     * @param lista -> ArrayList dependiendo de lo que se va a crear
+     * @param numero -> número identificador para saber que tabla crear
+     */
     public void crearTabla(ArrayList lista, int numero){
         switch (numero){
             case TABLAHOSPITAL:
