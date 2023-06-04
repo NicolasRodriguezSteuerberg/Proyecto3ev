@@ -161,7 +161,12 @@ public class Controller {
      * A la hora de eliminarlo en la base de datos se elimina en el ArrayList tambien
      */
     public static void eliminarMedico(String codM, JLabel label){
-        int auxiliar = lMedico.indexOf(codM);
+        int auxiliar=0;
+        for (int i = 0; i< lMedico.size();i++){
+            if(lMedico.get(i).getCodP().equals(codM)){
+                auxiliar = i;
+            }
+        }
         String auxiliarCodigo = lMedico.get(auxiliar).getCodH1();
         obxM.eliminarMedico(lMedico, codM,label);
         int nMedicos = obxM.contarMedicos(auxiliarCodigo, label);

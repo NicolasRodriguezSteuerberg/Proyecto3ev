@@ -50,22 +50,29 @@ public class MMedico extends Observable {
     public void modificarMedico(ArrayList<Medico> lista, String codM, JLabel label){
         try {
             Connection con = auxCon.conectar();
-            PreparedStatement ps = con.prepareStatement("UPDATE medico SET nomM=?,codH=? WHERE codM=?");
+            PreparedStatement ps = con.prepareStatement("update medico set nomM=?, codH=? where codM=?");
+            for (int i = 0; i< lista.size();i++){
+                if(lista.get(i).getCodP().equals(codM)){
+                    numeroAModificar = i;
+                }
+            }
 
             ps.setString(1, lista.get(numeroAModificar).getNomP());
-            ps.setString(2, lista.get(numeroAModificar).getCodH1());
-            ps.setString(3, codM);
+            ps.setString(2,  lista.get(numeroAModificar).getCodH1());
+            ps.setString(3,  codM);
 
-            verificacion=ps.executeUpdate();
+            verificacion = ps.executeUpdate();
+
             if(verificacion==0){
-                VentanaLabel.mensajeLabel("No existe el medico con el codigo "+codM,label,Color.red);
-            }else {
-                VentanaLabel.mensajeLabel("Medico modificado", label, Color.black);
+                VentanaLabel.mensajeLabel("No existe el medico con el código: " +  codM, label, Color.red);
+            }
+            else{
+                VentanaLabel.mensajeLabel("Medico modificado",label,Color.black);
                 setChanged();
                 notifyObservers("medico");
             }
 
-        }catch(SQLException e){
+        } catch (SQLException e) {
             VentanaLabel.mensajeLabel("ERROR en la modificación del medico",label,Color.red);
         }
     }
@@ -90,7 +97,7 @@ public class MMedico extends Observable {
 
             }else{
                 for (int i = 0; i< lista.size();i++){
-                    if(lista.get(i).getCodP()==codM){
+                    if(lista.get(i).getCodP().equals(codM)){
                         numeroAModificar = i;
                     }
                 }
@@ -140,7 +147,7 @@ public class MMedico extends Observable {
      */
     public void modificarArray(ArrayList<Medico> lista, String codM, String nombreM, String codH){
         for (int i = 0; i< lista.size();i++){
-            if(lista.get(i).getCodP()==codM){
+            if(lista.get(i).getCodP().equals(codM)){
                 numeroAModificar = i;
             }
         }

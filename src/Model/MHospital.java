@@ -146,7 +146,7 @@ public class MHospital extends Observable {
      */
     public void modificarNroMedico(ArrayList<Hospital> lista, String codH, int numeroMedico,JLabel label){
         for (int i = 0; i< lista.size();i++){
-            if(lista.get(i).getCodH()==codH){
+            if(lista.get(i).getCodH().equals(codH)){
                 numeroAModificar = i;
             }
         }
@@ -161,15 +161,8 @@ public class MHospital extends Observable {
 
             verificacion = ps.executeUpdate();
 
-            if(verificacion==0){
-                VentanaLabel.mensajeLabel("No existe el hospital con el código: " +  codH, label, Color.red);
-            }
-            else{
-                VentanaLabel.mensajeLabel("Hospital modificado",label,Color.black);
-            }
-
         } catch (SQLException e) {
-            VentanaLabel.mensajeLabel("ERROR en la modificación del hospital",label,Color.red);
+            VentanaLabel.mensajeLabel("ERROR en la modificación del número de médicos del hospital",label,Color.red);
         }
     }
 }
