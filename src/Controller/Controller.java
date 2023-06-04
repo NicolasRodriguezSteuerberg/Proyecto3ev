@@ -19,6 +19,10 @@ public class Controller {
     static Vista miVista = new Vista();
 
     //CREAR
+
+    /**
+     * método que crea los observers
+     */
     public static void anadirObserver(){
         ObserverTablas obxObs=new ObserverTablas();
         obxH.addObserver(obxObs);
@@ -60,6 +64,7 @@ public class Controller {
      * @param nomM -> nombre del médico
      * @param codH -> código del hospital donde trabaja el médico
      * Primero creamos el médico en el array para luego crear ell médico
+     * Cambio de número medicos por haber añadido un médico
      */
     public static void crearMedico(String codM, String nomM,String codH, JLabel label){
         int flag=0;
@@ -72,8 +77,7 @@ public class Controller {
             lMedico.add(new Medico(codM,nomM,codH));
         }
         obxM.crearMedico(lMedico, label);
-        int nMedicos = obxM.contarMedicos(codH, label);
-        obxH.modificarNroMedico(lHospital, codH,nMedicos, label);
+        obxH.cambiarNroMedicos(lHospital, label);
     }
 
     /**
@@ -87,7 +91,6 @@ public class Controller {
      * Seguido de esto añadimos el hospital al ArrayList y creamos el hospital en la base de datos
      */
     public static void crearHospital(String codH, String nombreH, String tipoH, int nroHabitaciones, JLabel label){
-        int nroMedico = obxM.contarMedicos(codH,label);
         int flag=0;
         for (int i=0; i<lHospital.size();i++) {
             if(lHospital.get(i).getCodH().equals(codH)){
@@ -95,9 +98,10 @@ public class Controller {
             }
         }
         if(flag==0) {
-            lHospital.add(new Hospital(codH, nombreH, tipoH, nroMedico, nroHabitaciones));
+            lHospital.add(new Hospital(codH, nombreH, tipoH, 0, nroHabitaciones));
         }
         obxH.crearHospital(lHospital, label);
+        obxH.cambiarNroMedicos(lHospital, label);
     }
 
 
@@ -122,10 +126,12 @@ public class Controller {
      * @param codH -> codigo del hospital donde pertenece
      * @param label -> etiqueta de la interfaz para mostrar mensajes
      * Primero modificamos el ArrayList y seguido de esto la base de datos
+     * Cambio de número medicos por posibilidad de su cambio
      */
     public static void modificarMedico(String codM,String nomM,String codH, JLabel label){
         obxM.modificarArray(lMedico,codM,nomM,codH);
         obxM.modificarMedico(lMedico,codM,label);
+        obxH.cambiarNroMedicos(lHospital, label);
     }
 
     /**
@@ -139,7 +145,7 @@ public class Controller {
      */
     public static void modificarHospital(String codH, String nombreH, String tipoH, int nroHabitaciones, JLabel label){
         obxH.modificarArray(lHospital, codH, nombreH, tipoH, nroHabitaciones);
-        obxH.modificarHospital(lHospital, codH, label);
+        obxH.cambiarNroMedicos(lHospital, label);
     }
 
 
@@ -161,16 +167,9 @@ public class Controller {
      * A la hora de eliminarlo en la base de datos se elimina en el ArrayList tambien
      */
     public static void eliminarMedico(String codM, JLabel label){
-        int auxiliar=0;
-        for (int i = 0; i< lMedico.size();i++){
-            if(lMedico.get(i).getCodP().equals(codM)){
-                auxiliar = i;
-            }
-        }
-        String auxiliarCodigo = lMedico.get(auxiliar).getCodH1();
         obxM.eliminarMedico(lMedico, codM,label);
-        int nMedicos = obxM.contarMedicos(auxiliarCodigo, label);
-        obxH.modificarNroMedico(lHospital, auxiliarCodigo,nMedicos, label);
+        obxH.cambiarNroMedicos(lHospital, label);
+        obxH.cambiarNroMedicos(lHospital, label);
     }
 
     /**
@@ -203,9 +202,11 @@ public class Controller {
 
         }
     }
-  
 
-
+    /**
+     * Método para crear/modificar las tablas
+     * @param numero -> numero para identificar en que tabla se va a hacer
+     */
     public static void crearTabla(int numero){
         switch (numero){
             case Vista.TABLAHOSPITAL:
