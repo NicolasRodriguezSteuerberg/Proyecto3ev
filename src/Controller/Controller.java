@@ -42,7 +42,15 @@ public class Controller {
      * Primero se añade el nuevo paciente al array y después se llama a crear paciente
      */
     public static void crearPaciente(String codP, String nomP,String codM, JLabel label){
-        lPaciente.add(new Paciente(codP,nomP,codM));
+        int flag=0;
+        for (int i=0; i<lPaciente.size();i++) {
+            if(lPaciente.get(i).getCodP().equals(codP)){
+                flag = 1;
+            }
+        }
+        if(flag==0) {
+            lPaciente.add(new Paciente(codP,nomP,codM));
+        }
         obxP.crearPaciente(lPaciente, label);
     }
 
@@ -54,7 +62,15 @@ public class Controller {
      * Primero creamos el médico en el array para luego crear ell médico
      */
     public static void crearMedico(String codM, String nomM,String codH, JLabel label){
-        lMedico.add(new Medico(codM,nomM,codH));
+        int flag=0;
+        for (int i=0; i<lMedico.size();i++) {
+            if(lMedico.get(i).getCodP().equals(codM)){
+                flag = 1;
+            }
+        }
+        if(flag==0) {
+            lMedico.add(new Medico(codM,nomM,codH));
+        }
         obxM.crearMedico(lMedico, label);
         int nMedicos = obxM.contarMedicos(codH, label);
         obxH.modificarNroMedico(lHospital, codH,nMedicos, label);
@@ -72,7 +88,15 @@ public class Controller {
      */
     public static void crearHospital(String codH, String nombreH, String tipoH, int nroHabitaciones, JLabel label){
         int nroMedico = obxM.contarMedicos(codH,label);
-        lHospital.add(new Hospital(codH, nombreH, tipoH, nroMedico, nroHabitaciones));
+        int flag=0;
+        for (int i=0; i<lHospital.size();i++) {
+            if(lHospital.get(i).getCodH().equals(codH)){
+                flag = 1;
+            }
+        }
+        if(flag==0) {
+            lHospital.add(new Hospital(codH, nombreH, tipoH, nroMedico, nroHabitaciones));
+        }
         obxH.crearHospital(lHospital, label);
     }
 
