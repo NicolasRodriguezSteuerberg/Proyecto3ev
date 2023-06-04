@@ -53,9 +53,9 @@ public class MHospital extends Observable {
     public void modificarHospital(ArrayList<Hospital> lista, String codH, JLabel label){
         try {
             Connection con = auxCon.conectar();
-            PreparedStatement ps = con.prepareStatement("update hospital set nombreH=?, tipoH=?,nroHabit=? where codH=?");
+            PreparedStatement ps = con.prepareStatement("update hospital set nombreH=?, tipoH=?,nroHabt=? where codH=?");
             for (int i = 0; i< lista.size();i++){
-                if(lista.get(i).getCodH()==codH){
+                if(lista.get(i).getCodH().equals(codH)){
                     numeroAModificar = i;
                 }
             }
@@ -90,7 +90,7 @@ public class MHospital extends Observable {
     public void eliminarHospital(ArrayList<Hospital> lista, String codH, JLabel label){
         try {
             Connection con = auxCon.conectar();
-            PreparedStatement ps = con.prepareStatement("delete from hospital where nif=?");
+            PreparedStatement ps = con.prepareStatement("DELETE FROM hospital WHERE codH=?");
 
             ps.setString(1,codH);
 
@@ -101,7 +101,7 @@ public class MHospital extends Observable {
             }
             else{
                 for (int i = 0; i< lista.size();i++){
-                    if(lista.get(i).getCodH()==codH){
+                    if(lista.get(i).getCodH().equals(codH)){
                         numeroAModificar = i;
                     }
                 }
@@ -128,7 +128,7 @@ public class MHospital extends Observable {
      */
     public void modificarArray(ArrayList<Hospital> lista, String codH, String nombreH, String tipoH, int nroHabitaciones){
         for (int i = 0; i< lista.size();i++){
-            if(lista.get(i).getCodH()==codH){
+            if(lista.get(i).getCodH().equals(codH)){
                 numeroAModificar = i;
             }
         }
