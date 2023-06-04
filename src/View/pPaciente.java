@@ -365,7 +365,7 @@ public class pPaciente extends javax.swing.JPanel {
     private javax.swing.JLabel eCodM;
     private javax.swing.JLabel eCodp;
     private javax.swing.JLabel eLogo;
-    private javax.swing.JLabel eMensaje;
+    public javax.swing.JLabel eMensaje;
     private javax.swing.JLabel eNomP;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField lcodM;

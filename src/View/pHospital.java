@@ -386,7 +386,7 @@ public class pHospital extends javax.swing.JPanel {
     private javax.swing.JButton bVolverMenu;
     private javax.swing.JComboBox<String> cTipoH;
     private javax.swing.JLabel eCodh;
-    private javax.swing.JLabel eMensaje;
+    public javax.swing.JLabel eMensaje;
     private javax.swing.JLabel eNHabitaciones;
     private javax.swing.JLabel eNomH;
     private javax.swing.JLabel eTipoH;

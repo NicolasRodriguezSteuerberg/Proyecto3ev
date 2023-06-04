@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -140,29 +141,38 @@ public class MHospital extends Observable {
     /**
      * Metodo para modificar el numero de médicos cuando se añada un médico o se modifique
      * @param lista -> ArrayList de tipo hospital con los datos
-     * @param codH -> código del hospital
-     * @param numeroMedico -> numero de médicos
      * @param label -> etiqueta de la interfaz para mostrar los mensajes
      */
-    public void modificarNroMedico(ArrayList<Hospital> lista, String codH, int numeroMedico,JLabel label){
-        for (int i = 0; i< lista.size();i++){
-            if(lista.get(i).getCodH().equals(codH)){
-                numeroAModificar = i;
-            }
-        }
-        lista.get(numeroAModificar).setNroMedicos(numeroMedico);
+
+    public void cambiarNroMedicos(ArrayList<Hospital> lista, JLabel label){
         try {
             Connection con = auxCon.conectar();
+            ResultSet rs;
+            int numero;
+            for (int i = 0; i < lista.size(); i++) {
+                PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM medico WHERE codH=?");
 
-            PreparedStatement ps = con.prepareStatement("update hospital set nroM=? where codH=?");
+                ps.setString(1,lista.get(i).getCodH());
 
-            ps.setInt(1, numeroMedico);
-            ps.setString(2,  codH);
+                rs= ps.executeQuery();
 
-            verificacion = ps.executeUpdate();
+                if(rs.next()) {
+                    numero = rs.getInt(1);
 
-        } catch (SQLException e) {
-            VentanaLabel.mensajeLabel("ERROR en la modificación del número de médicos del hospital",label,Color.red);
+                    PreparedStatement ps2 = con.prepareStatement("update hospital set nroM=? where codH=?");
+
+                    ps2.setInt(1, numero);
+                    ps2.setString(2, lista.get(i).getCodH());
+
+                    ps2.executeUpdate();
+                    lista.get(i).setNroMedicos(numero);
+                }
+            }
+            setChanged();
+            notifyObservers("hospital");
+        }catch (SQLException e){
+            VentanaLabel.mensajeLabel("Error al cambiar los médicos",label,Color.red);
         }
     }
+
 }

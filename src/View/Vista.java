@@ -59,20 +59,29 @@ public class Vista {
     public void visualizarHospital(){
         ventana.setBounds(0,0,1280,720);
         quitarPaneles();
+        pH.eMensaje.setText("");
         pH.setVisible(true);
     }
 
     public void visualizarMedico(){
         ventana.setBounds(0,0,1280,720);
         quitarPaneles();
+        pM.eMensaje.setText("");
         pM.setVisible(true);
     }
 
     public void visualizarPaciente(){
         ventana.setBounds(0,0,1280,720);
         quitarPaneles();
+        pP.eMensaje.setText("");
         pP.setVisible(true);
     }
+
+    /**
+     * Método para crear la tabla
+     * @param lista -> ArrayList dependiendo de lo que se va a crear
+     * @param numero -> número identificador para saber que tabla crear
+     */
     public void crearTabla(ArrayList lista, int numero){
         switch (numero){
             case TABLAHOSPITAL:
