@@ -145,6 +145,7 @@ public class Controller {
      */
     public static void modificarHospital(String codH, String nombreH, String tipoH, int nroHabitaciones, JLabel label){
         obxH.modificarArray(lHospital, codH, nombreH, tipoH, nroHabitaciones);
+        obxH.modificarHospital(lHospital,codH,label);
         obxH.cambiarNroMedicos(lHospital, label);
     }
 
@@ -168,7 +169,6 @@ public class Controller {
      */
     public static void eliminarMedico(String codM, JLabel label){
         obxM.eliminarMedico(lMedico, codM,label);
-        obxH.cambiarNroMedicos(lHospital, label);
         obxH.cambiarNroMedicos(lHospital, label);
     }
 
