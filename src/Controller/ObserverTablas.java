@@ -15,9 +15,8 @@ public class ObserverTablas implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         aux = arg.toString();
-        if(aux.contains("hospital")){
+        if(aux.equals("hospital")){
                 Controller.crearTabla(Vista.TABLAHOSPITAL);
-
         } else if (aux.equals("medico")) {
                 Controller.crearTabla(Vista.TABLAMEDICO);
         } else {

@@ -133,7 +133,11 @@ public class MHospital extends Observable {
      * @param label -> etiqueta de la interfaz para mostrar los mensajes
      */
     public void modificarNroMedico(ArrayList<Hospital> lista, String codH, int numeroMedico,JLabel label){
-        numeroAModificar = lista.indexOf(codH);
+        for (int i = 0; i< lista.size();i++){
+            if(lista.get(i).getCodH()==codH){
+                numeroAModificar = i;
+            }
+        }
         lista.get(numeroAModificar).setNroMedicos(numeroMedico);
         try {
             Connection con = auxCon.conectar();
