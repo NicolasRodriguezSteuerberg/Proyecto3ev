@@ -54,7 +54,11 @@ public class MHospital extends Observable {
         try {
             Connection con = auxCon.conectar();
             PreparedStatement ps = con.prepareStatement("update hospital set nombreH=?, tipoH=?,nroHabit=? where codH=?");
-            numeroAModificar=lista.indexOf(codH);
+            for (int i = 0; i< lista.size();i++){
+                if(lista.get(i).getCodH()==codH){
+                    numeroAModificar = i;
+                }
+            }
 
             ps.setString(1, lista.get(numeroAModificar).getNombreH());
             ps.setString(2,  lista.get(numeroAModificar).getTipoH());
@@ -96,7 +100,11 @@ public class MHospital extends Observable {
                 VentanaLabel.mensajeLabel("No existe el hospital con el código: " + codH,label,Color.red);
             }
             else{
-                numeroAModificar = lista.indexOf(codH);
+                for (int i = 0; i< lista.size();i++){
+                    if(lista.get(i).getCodH()==codH){
+                        numeroAModificar = i;
+                    }
+                }
                 lista.remove(numeroAModificar);
 
                 VentanaLabel.mensajeLabel("Hospital eliminado", label, Color.black);
@@ -119,7 +127,11 @@ public class MHospital extends Observable {
      * @param nroHabitaciones -> número de habitaciones de hospital
      */
     public void modificarArray(ArrayList<Hospital> lista, String codH, String nombreH, String tipoH, int nroHabitaciones){
-        numeroAModificar = lista.indexOf(codH);
+        for (int i = 0; i< lista.size();i++){
+            if(lista.get(i).getCodH()==codH){
+                numeroAModificar = i;
+            }
+        }
         lista.get(numeroAModificar).setNombreH(nombreH);
         lista.get(numeroAModificar).setNroHabitaciones(nroHabitaciones);
         lista.get(numeroAModificar).setTipoH(tipoH);
