@@ -281,7 +281,7 @@ public class pHospital extends javax.swing.JPanel {
         lcodH.setText(model.getValueAt(fila, 0).toString());
         lnombreH.setText(model.getValueAt(fila, 1).toString());
         cTipoH.setSelectedItem(model.getValueAt(fila, 2).toString());
-        lnHabitaciones.setText(model.getValueAt(fila, 3).toString());
+        lnHabitaciones.setText(model.getValueAt(fila, 4).toString());
     }
 
     private void bVaciarActionPerformed(java.awt.event.ActionEvent evt) {
