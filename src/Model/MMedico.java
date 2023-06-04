@@ -89,7 +89,11 @@ public class MMedico extends Observable {
                 VentanaLabel.mensajeLabel(" No existe el médico con tal codigo",label,Color.red);
 
             }else{
-                numeroAModificar=lista.indexOf(codM);
+                for (int i = 0; i< lista.size();i++){
+                    if(lista.get(i).getCodP()==codM){
+                        numeroAModificar = i;
+                    }
+                }
                 lista.remove(numeroAModificar);
 
                 VentanaLabel.mensajeLabel("Médico eliminado",label,Color.black);
@@ -135,7 +139,11 @@ public class MMedico extends Observable {
      * @param codH -> código del hospital al que pertenece
      */
     public void modificarArray(ArrayList<Medico> lista, String codM, String nombreM, String codH){
-        numeroAModificar = lista.indexOf(codM);
+        for (int i = 0; i< lista.size();i++){
+            if(lista.get(i).getCodP()==codM){
+                numeroAModificar = i;
+            }
+        }
         lista.get(numeroAModificar).setNomP(nombreM);
         lista.get(numeroAModificar).setCodP(codM);
         lista.get(numeroAModificar).setCodH1(codH);
