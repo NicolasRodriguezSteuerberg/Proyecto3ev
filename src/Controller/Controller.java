@@ -72,8 +72,7 @@ public class Controller {
             lMedico.add(new Medico(codM,nomM,codH));
         }
         obxM.crearMedico(lMedico, label);
-        int nMedicos = obxM.contarMedicos(codH, label);
-        obxH.modificarNroMedico(lHospital, codH,nMedicos, label);
+        obxH.cambiarNroMedicos(lHospital, label);
     }
 
     /**
@@ -87,7 +86,6 @@ public class Controller {
      * Seguido de esto añadimos el hospital al ArrayList y creamos el hospital en la base de datos
      */
     public static void crearHospital(String codH, String nombreH, String tipoH, int nroHabitaciones, JLabel label){
-        int nroMedico = obxM.contarMedicos(codH,label);
         int flag=0;
         for (int i=0; i<lHospital.size();i++) {
             if(lHospital.get(i).getCodH().equals(codH)){
@@ -95,9 +93,10 @@ public class Controller {
             }
         }
         if(flag==0) {
-            lHospital.add(new Hospital(codH, nombreH, tipoH, nroMedico, nroHabitaciones));
+            lHospital.add(new Hospital(codH, nombreH, tipoH, 0, nroHabitaciones));
         }
         obxH.crearHospital(lHospital, label);
+        obxH.cambiarNroMedicos(lHospital, label);
     }
 
 
@@ -139,7 +138,7 @@ public class Controller {
      */
     public static void modificarHospital(String codH, String nombreH, String tipoH, int nroHabitaciones, JLabel label){
         obxH.modificarArray(lHospital, codH, nombreH, tipoH, nroHabitaciones);
-        obxH.modificarHospital(lHospital, codH, label);
+        obxH.cambiarNroMedicos(lHospital, label);
     }
 
 
@@ -161,16 +160,8 @@ public class Controller {
      * A la hora de eliminarlo en la base de datos se elimina en el ArrayList tambien
      */
     public static void eliminarMedico(String codM, JLabel label){
-        int auxiliar=0;
-        for (int i = 0; i< lMedico.size();i++){
-            if(lMedico.get(i).getCodP().equals(codM)){
-                auxiliar = i;
-            }
-        }
-        String auxiliarCodigo = lMedico.get(auxiliar).getCodH1();
         obxM.eliminarMedico(lMedico, codM,label);
-        int nMedicos = obxM.contarMedicos(auxiliarCodigo, label);
-        obxH.modificarNroMedico(lHospital, auxiliarCodigo,nMedicos, label);
+        obxH.cambiarNroMedicos(lHospital, label);
     }
 
     /**

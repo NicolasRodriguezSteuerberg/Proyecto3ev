@@ -115,30 +115,6 @@ public class MMedico extends Observable {
     }
 
     /**
-     * Método para contar la cantidad de médicos en la base de datos
-     * @param codH -> codigo del hospital al que pertenece el medico
-     * @param label -> etiqueta de la interfaz para mostrar los mensajes
-     * @return cantidad de médicos en el hospital respectivamente
-     */
-    public int contarMedicos(String codH, JLabel label){
-        int valor=0;
-        try {
-            Connection con = auxCon.conectar();
-            ResultSet rs;
-            PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM medico WHERE codH=?");
-
-            ps.setString(1, codH);
-
-            rs=ps.executeQuery();
-            System.out.println(rs.getInt(1));
-        }catch(SQLException e){
-            VentanaLabel.mensajeLabel("Error al contar los medicos",label,Color.red);
-        }
-
-        return valor;
-    }
-
-    /**
      * Método para modificar el ArrayList
      * @param lista -> ArrayList tipo Médico con los datos
      * @param codM -> código del medico

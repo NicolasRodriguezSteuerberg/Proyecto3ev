@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -144,25 +145,25 @@ public class MHospital extends Observable {
      * @param numeroMedico -> numero de médicos
      * @param label -> etiqueta de la interfaz para mostrar los mensajes
      */
-    public void modificarNroMedico(ArrayList<Hospital> lista, String codH, int numeroMedico,JLabel label){
-        for (int i = 0; i< lista.size();i++){
-            if(lista.get(i).getCodH().equals(codH)){
-                numeroAModificar = i;
-            }
-        }
-        lista.get(numeroAModificar).setNroMedicos(numeroMedico);
+
+    public void cambiarNroMedicos(ArrayList<Hospital> lista, JLabel label){
         try {
             Connection con = auxCon.conectar();
+            ResultSet rs;
 
-            PreparedStatement ps = con.prepareStatement("update hospital set nroM=? where codH=?");
+            for (int i = 0; i < lista.size(); i++) {
+                PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM medico WHERE codH=?");
+                ps.setString(1,lista.get(i).getCodH());
+                rs= ps.executeQuery();
 
-            ps.setInt(1, numeroMedico);
-            ps.setString(2,  codH);
-
-            verificacion = ps.executeUpdate();
-
-        } catch (SQLException e) {
-            VentanaLabel.mensajeLabel("ERROR en la modificación del número de médicos del hospital",label,Color.red);
+                PreparedStatement ps1 = con.prepareStatement("update hospital set nroM=? where codH=?");
+                ps1.setInt(1,rs.getInt(1));
+                ps1.setString(2, lista.get(i).getCodH());
+                rs = ps1.executeQuery();
+            }
+        }catch (SQLException e){
+            VentanaLabel.mensajeLabel("Error al cambiar los médicos",label,Color.red);
         }
     }
+
 }
