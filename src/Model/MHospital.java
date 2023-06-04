@@ -150,17 +150,28 @@ public class MHospital extends Observable {
         try {
             Connection con = auxCon.conectar();
             ResultSet rs;
-
+            int numero;
             for (int i = 0; i < lista.size(); i++) {
                 PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM medico WHERE codH=?");
+
                 ps.setString(1,lista.get(i).getCodH());
+
                 rs= ps.executeQuery();
 
-                PreparedStatement ps1 = con.prepareStatement("update hospital set nroM=? where codH=?");
-                ps1.setInt(1,rs.getInt(1));
-                ps1.setString(2, lista.get(i).getCodH());
-                rs = ps1.executeQuery();
+                if(rs.next()) {
+                    numero = rs.getInt(1);
+
+                    PreparedStatement ps2 = con.prepareStatement("update hospital set nroM=? where codH=?");
+
+                    ps2.setInt(1, numero);
+                    ps2.setString(2, lista.get(i).getCodH());
+
+                    ps2.executeUpdate();
+                    lista.get(i).setNroMedicos(numero);
+                }
             }
+            setChanged();
+            notifyObservers("hospital");
         }catch (SQLException e){
             VentanaLabel.mensajeLabel("Error al cambiar los médicos",label,Color.red);
         }

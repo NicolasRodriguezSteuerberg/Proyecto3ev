@@ -356,7 +356,7 @@ public class pMedico extends javax.swing.JPanel {
     private javax.swing.JButton bVolverMenu;
     private javax.swing.JLabel eCodm;
     private javax.swing.JLabel eLogo;
-    private javax.swing.JLabel eMensaje;
+    public javax.swing.JLabel eMensaje;
     private javax.swing.JLabel eNomH;
     private javax.swing.JLabel ecodH;
     private javax.swing.JScrollPane jScrollPane1;

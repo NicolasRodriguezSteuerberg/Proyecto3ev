@@ -18,7 +18,7 @@ public class ObserverTablas implements Observer {
         if(aux.equals("hospital")){
                 Controller.crearTabla(Vista.TABLAHOSPITAL);
         } else if (aux.equals("medico")) {
-                Controller.crearTabla(Vista.TABLAMEDICO);
+            Controller.crearTabla(Vista.TABLAMEDICO);
         } else {
                 Controller.crearTabla(Vista.TABLAPACIENTE);
         }
