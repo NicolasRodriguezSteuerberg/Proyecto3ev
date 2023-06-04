@@ -54,6 +54,12 @@ public class MPaciente extends Observable {
         try {
             Connection con = auxCon.conectar();
             PreparedStatement ps = con.prepareStatement("UPDATE paciente SET codM=?,nomP=? WHERE codP=?");
+            for (int i = 0; i< lista.size();i++){
+                if(lista.get(i).getCodP().equals(codP)){
+                    numeroAModificar = i;
+                }
+            }
+
 
             ps.setString(1, lista.get(numeroAModificar).getCodMed1());
             ps.setString(2,  lista.get(numeroAModificar).getNomP());
@@ -91,7 +97,7 @@ public class MPaciente extends Observable {
                 VentanaLabel.mensajeLabel("No existe el paciente con el codigo "+codP,label,Color.red);
             }else {
                 for (int i = 0; i< lista.size();i++){
-                    if(lista.get(i).getCodP()==codP){
+                    if(lista.get(i).getCodP().equals(codP)){
                         numeroAModificar = i;
                     }
                 }
@@ -117,7 +123,7 @@ public class MPaciente extends Observable {
      */
     public void modificarArray(ArrayList<Paciente> lista, String codP, String nombreP, String codM){
         for (int i = 0; i< lista.size();i++){
-            if(lista.get(i).getCodP()==codP){
+            if(lista.get(i).getCodP().equals(codP)){
                 numeroAModificar = i;
             }
         }
