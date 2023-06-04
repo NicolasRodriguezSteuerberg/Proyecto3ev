@@ -44,8 +44,8 @@ public class GestionBases {
 
             while(rs.next()){
                 lHospital.add(new Hospital(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getInt(5)));
-                Controller.añadirFila(Vista.TABLAHOSPITAL,lHospital.size()-1);
             }
+            Controller.crearTabla(Vista.TABLAHOSPITAL);
 
             //Para los medicos
             ps=con.prepareStatement("SELECT codM,nomM,codH FROM medico");
@@ -53,8 +53,8 @@ public class GestionBases {
 
             while(rs.next()){
                 lMedico.add(new Medico(rs.getString(1),rs.getString(2),rs.getString(3)));
-                Controller.añadirFila(Vista.TABLAMEDICO, lMedico.size()-1);
             }
+            Controller.crearTabla(Vista.TABLAMEDICO);
 
             //Para los pacientes
             ps=con.prepareStatement("SELECT codP,nomP,codM FROM paciente");
@@ -62,8 +62,8 @@ public class GestionBases {
 
             while(rs.next()){
                 lPaciente.add(new Paciente(rs.getString(1),rs.getString(2),rs.getString(3)));
-                Controller.añadirFila(Vista.TABLAPACIENTE, lPaciente.size()-1);
             }
+            Controller.crearTabla(Vista.TABLAPACIENTE);
 
 
         }catch(SQLException e){
