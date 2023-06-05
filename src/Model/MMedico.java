@@ -35,10 +35,6 @@ public class MMedico extends Observable {
             setChanged();
             notifyObservers("medico");
 
-            /**ToDO
-             * Modificar el numero de médicos de un hospital
-             */
-
         } catch (SQLException e) {
             VentanaLabel.mensajeLabel("ERROR a la hora de hacer el insert",label,Color.red);
         }
