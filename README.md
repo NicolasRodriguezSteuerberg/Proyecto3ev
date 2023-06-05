@@ -173,7 +173,7 @@ PAQUETE VIEW
         +visualizarPaciente()
         +crearTabla()
         }
-        
+     
         Controller "1" *-- "1" Vista : association
         
         class pHospital{
@@ -205,4 +205,36 @@ MAIN
       App "1" *-- "1" Controller : association
 ```
 ## Diagrama de Secuencias:
+(Ejemplo con crear paciente)
 
+```mermaid
+sequenceDiagram
+    actor usuario
+    participant PanelMenu
+    participant PanelPaciente
+    participant View
+    participant Controller
+    participant ModelPaciente
+    participant Observer
+    
+    usuario->>PanelMenu: click! Paciente
+    PanelMenu->>Controller: el usuario quiere cambiar de panel
+    activate Controller
+    Controller->>View: cambia al panel de paciente
+    deactivate Controller
+    View-->>PanelPaciente: muestrate, por favor
+    activate PanelPaciente
+    usuario->>PanelPaciente: click! Crear paciente
+    PanelPaciente->>Controller: el usuario quiere crear un paciente
+    activate Controller
+    Controller->>ModelPaciente: crea un paciente
+    activate ModelPaciente
+    ModelPaciente->>Observer: notifica que se ha creado
+    deactivate ModelPaciente
+    Observer->>Controller: quiero que se cargue nuevamente la tabla de paciente
+    Controller->>View: quiero que cargues la tabla de paciente
+    deactivate Controller
+    View->>PanelPaciente: Regenera la tabla y muestrala
+    deactivate PanelPaciente
+
+```
