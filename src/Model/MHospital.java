@@ -4,12 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Observable;
+
 import Clases.Hospital;
 import com.nicosteuerberg.datos.VentanaLabel;
 
-public class MHospital{
+public class MHospital extends Observable {
     GestionBases auxCon= new GestionBases();
     int numeroAModificar;
     int verificacion;
@@ -34,6 +37,9 @@ public class MHospital{
 
             VentanaLabel.mensajeLabel("Hospital añadido", label, Color.black);
 
+            setChanged();
+            notifyObservers("hospital");
+
         }catch (SQLException e){
             VentanaLabel.mensajeLabel("ERROR a la hora de hacer el insert", label, Color.red);
         }
@@ -48,7 +54,12 @@ public class MHospital{
     public void modificarHospital(ArrayList<Hospital> lista, String codH, JLabel label){
         try {
             Connection con = auxCon.conectar();
-            PreparedStatement ps = con.prepareStatement("update hospital set nombreH=?, tipoH=?,nroHabit=? where codH=?");
+            PreparedStatement ps = con.prepareStatement("update hospital set nombreH=?, tipoH=?,nroHabt=? where codH=?");
+            for (int i = 0; i< lista.size();i++){
+                if(lista.get(i).getCodH().equals(codH)){
+                    numeroAModificar = i;
+                }
+            }
 
             ps.setString(1, lista.get(numeroAModificar).getNombreH());
             ps.setString(2,  lista.get(numeroAModificar).getTipoH());
@@ -62,6 +73,8 @@ public class MHospital{
             }
             else{
                 VentanaLabel.mensajeLabel("Hospital modificado",label,Color.black);
+                setChanged();
+                notifyObservers("hospital");
             }
 
         } catch (SQLException e) {
@@ -76,11 +89,9 @@ public class MHospital{
      * @param label -> etiqueta de la interfaz para mostrar los mensajes
      */
     public void eliminarHospital(ArrayList<Hospital> lista, String codH, JLabel label){
-        numeroAModificar = lista.indexOf(codH);
-        lista.remove(numeroAModificar);
         try {
             Connection con = auxCon.conectar();
-            PreparedStatement ps = con.prepareStatement("delete from hospital where nif=?");
+            PreparedStatement ps = con.prepareStatement("DELETE FROM hospital WHERE codH=?");
 
             ps.setString(1,codH);
 
@@ -90,16 +101,22 @@ public class MHospital{
                 VentanaLabel.mensajeLabel("No existe el hospital con el código: " + codH,label,Color.red);
             }
             else{
+                for (int i = 0; i< lista.size();i++){
+                    if(lista.get(i).getCodH().equals(codH)){
+                        numeroAModificar = i;
+                    }
+                }
+                lista.remove(numeroAModificar);
+
                 VentanaLabel.mensajeLabel("Hospital eliminado", label, Color.black);
+
+                setChanged();
+                notifyObservers("hospital");
             }
 
         }catch (SQLException e){
             VentanaLabel.mensajeLabel("ERROR en el borrado del hospital", label, Color.red);
         }
-    }
-
-    public void cambiarTabla(ArrayList<Hospital> lista, JTable tabla){
-
     }
 
     /**
@@ -111,7 +128,11 @@ public class MHospital{
      * @param nroHabitaciones -> número de habitaciones de hospital
      */
     public void modificarArray(ArrayList<Hospital> lista, String codH, String nombreH, String tipoH, int nroHabitaciones){
-        numeroAModificar = lista.indexOf(codH);
+        for (int i = 0; i< lista.size();i++){
+            if(lista.get(i).getCodH().equals(codH)){
+                numeroAModificar = i;
+            }
+        }
         lista.get(numeroAModificar).setNombreH(nombreH);
         lista.get(numeroAModificar).setNroHabitaciones(nroHabitaciones);
         lista.get(numeroAModificar).setTipoH(tipoH);
@@ -120,32 +141,38 @@ public class MHospital{
     /**
      * Metodo para modificar el numero de médicos cuando se añada un médico o se modifique
      * @param lista -> ArrayList de tipo hospital con los datos
-     * @param codH -> código del hospital
-     * @param numeroMedico -> numero de médicos
      * @param label -> etiqueta de la interfaz para mostrar los mensajes
      */
-    public void modificarNroMedico(ArrayList<Hospital> lista, String codH, int numeroMedico,JLabel label){
-        numeroAModificar = lista.indexOf(codH);
-        lista.get(numeroAModificar).setNroMedicos(numeroMedico);
+
+    public void cambiarNroMedicos(ArrayList<Hospital> lista, JLabel label){
         try {
             Connection con = auxCon.conectar();
+            ResultSet rs;
+            int numero;
+            for (int i = 0; i < lista.size(); i++) {
+                PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM medico WHERE codH=?");
 
-            PreparedStatement ps = con.prepareStatement("update hospital set nroM=? where codH=?");
+                ps.setString(1,lista.get(i).getCodH());
 
-            ps.setInt(1, numeroMedico);
-            ps.setString(2,  codH);
+                rs= ps.executeQuery();
 
-            verificacion = ps.executeUpdate();
+                if(rs.next()) {
+                    numero = rs.getInt(1);
 
-            if(verificacion==0){
-                VentanaLabel.mensajeLabel("No existe el hospital con el código: " +  codH, label, Color.red);
+                    PreparedStatement ps2 = con.prepareStatement("update hospital set nroM=? where codH=?");
+
+                    ps2.setInt(1, numero);
+                    ps2.setString(2, lista.get(i).getCodH());
+
+                    ps2.executeUpdate();
+                    lista.get(i).setNroMedicos(numero);
+                }
             }
-            else{
-                VentanaLabel.mensajeLabel("Hospital modificado",label,Color.black);
-            }
-
-        } catch (SQLException e) {
-            VentanaLabel.mensajeLabel("ERROR en la modificación del hospital",label,Color.red);
+            setChanged();
+            notifyObservers("hospital");
+        }catch (SQLException e){
+            VentanaLabel.mensajeLabel("Error al cambiar los médicos",label,Color.red);
         }
     }
+
 }

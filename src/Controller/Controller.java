@@ -6,7 +6,6 @@ import Model.MHospital;
 import Model.MMedico;
 import Model.MPaciente;
 import View.Vista;
-
 import javax.swing.*;
 import java.util.ArrayList;
 
@@ -19,14 +18,24 @@ public class Controller {
     static MPaciente obxP= new MPaciente();
     static Vista miVista = new Vista();
 
-
     //CREAR
+
+    /**
+     * método que crea los observers
+     */
+    public static void anadirObserver(){
+        ObserverTablas obxObs=new ObserverTablas();
+        obxH.addObserver(obxObs);
+        obxM.addObserver(obxObs);
+        obxP.addObserver(obxObs);
+    }
     /**
      * Para iniciar los ArrayList al principio del programa
      * recibiendo los valores de la base de datos
      */
     public static void crearArrays(){
-        GestionBases.crearArrayList(lHospital, lMedico, lPaciente);
+        GestionBases auxGestion=new GestionBases();
+        auxGestion.crearArrayList(lHospital, lMedico, lPaciente);
     }
 
     /**
@@ -37,7 +46,15 @@ public class Controller {
      * Primero se añade el nuevo paciente al array y después se llama a crear paciente
      */
     public static void crearPaciente(String codP, String nomP,String codM, JLabel label){
-        lPaciente.add(new Paciente(codP,nomP,codM));
+        int flag=0;
+        for (int i=0; i<lPaciente.size();i++) {
+            if(lPaciente.get(i).getCodP().equals(codP)){
+                flag = 1;
+            }
+        }
+        if(flag==0) {
+            lPaciente.add(new Paciente(codP,nomP,codM));
+        }
         obxP.crearPaciente(lPaciente, label);
     }
 
@@ -47,12 +64,20 @@ public class Controller {
      * @param nomM -> nombre del médico
      * @param codH -> código del hospital donde trabaja el médico
      * Primero creamos el médico en el array para luego crear ell médico
+     * Cambio de número medicos por haber añadido un médico
      */
     public static void crearMedico(String codM, String nomM,String codH, JLabel label){
-        lMedico.add(new Medico(codM,nomM,codH));
+        int flag=0;
+        for (int i=0; i<lMedico.size();i++) {
+            if(lMedico.get(i).getCodP().equals(codM)){
+                flag = 1;
+            }
+        }
+        if(flag==0) {
+            lMedico.add(new Medico(codM,nomM,codH));
+        }
         obxM.crearMedico(lMedico, label);
-        int nMedicos = obxM.contarMedicos(codH, label);
-        obxH.modificarNroMedico(lHospital, codH,nMedicos, label);
+        obxH.cambiarNroMedicos(lHospital, label);
     }
 
     /**
@@ -66,9 +91,17 @@ public class Controller {
      * Seguido de esto añadimos el hospital al ArrayList y creamos el hospital en la base de datos
      */
     public static void crearHospital(String codH, String nombreH, String tipoH, int nroHabitaciones, JLabel label){
-        int nroMedico = obxM.contarMedicos(codH,label);
-        lHospital.add(new Hospital(codH, nombreH, tipoH, nroMedico, nroHabitaciones));
+        int flag=0;
+        for (int i=0; i<lHospital.size();i++) {
+            if(lHospital.get(i).getCodH().equals(codH)){
+                flag = 1;
+            }
+        }
+        if(flag==0) {
+            lHospital.add(new Hospital(codH, nombreH, tipoH, 0, nroHabitaciones));
+        }
         obxH.crearHospital(lHospital, label);
+        obxH.cambiarNroMedicos(lHospital, label);
     }
 
 
@@ -93,10 +126,12 @@ public class Controller {
      * @param codH -> codigo del hospital donde pertenece
      * @param label -> etiqueta de la interfaz para mostrar mensajes
      * Primero modificamos el ArrayList y seguido de esto la base de datos
+     * Cambio de número medicos por posibilidad de su cambio
      */
     public static void modificarMedico(String codM,String nomM,String codH, JLabel label){
         obxM.modificarArray(lMedico,codM,nomM,codH);
         obxM.modificarMedico(lMedico,codM,label);
+        obxH.cambiarNroMedicos(lHospital, label);
     }
 
     /**
@@ -110,7 +145,8 @@ public class Controller {
      */
     public static void modificarHospital(String codH, String nombreH, String tipoH, int nroHabitaciones, JLabel label){
         obxH.modificarArray(lHospital, codH, nombreH, tipoH, nroHabitaciones);
-        obxH.modificarHospital(lHospital, codH, label);
+        obxH.modificarHospital(lHospital,codH,label);
+        obxH.cambiarNroMedicos(lHospital, label);
     }
 
 
@@ -132,11 +168,8 @@ public class Controller {
      * A la hora de eliminarlo en la base de datos se elimina en el ArrayList tambien
      */
     public static void eliminarMedico(String codM, JLabel label){
-        int auxiliar = lMedico.indexOf(codM);
-        String auxiliarCodigo = lMedico.get(auxiliar).getCodH1();
         obxM.eliminarMedico(lMedico, codM,label);
-        int nMedicos = obxM.contarMedicos(auxiliarCodigo, label);
-        obxH.modificarNroMedico(lHospital, auxiliarCodigo,nMedicos, label);
+        obxH.cambiarNroMedicos(lHospital, label);
     }
 
     /**
@@ -148,11 +181,14 @@ public class Controller {
     public static void eliminarHospital(String codH, JLabel label){
         obxH.eliminarHospital(lHospital, codH,label);
     }
-
+    /**
+     * Cambiar el panel de la IU
+     * @param numero -> numero para saber a que panel cambiar
+     */
     public static void cambiarPaneles(int numero){
         switch (numero){
             case Vista.panelMenu:
-               Vista.visualizarMenu();
+               miVista.visualizarMenu();
                 break;
             case Vista.panelHospital:
                 miVista.visualizarHospital();
@@ -166,4 +202,23 @@ public class Controller {
 
         }
     }
+
+    /**
+     * Método para crear/modificar las tablas
+     * @param numero -> numero para identificar en que tabla se va a hacer
+     */
+    public static void crearTabla(int numero){
+        switch (numero){
+            case Vista.TABLAHOSPITAL:
+                miVista.crearTabla(lHospital, Vista.TABLAHOSPITAL);
+                break;
+            case Vista.TABLAMEDICO:
+                miVista.crearTabla(lMedico, Vista.TABLAMEDICO);
+                break;
+            case Vista.TABLAPACIENTE:
+                miVista.crearTabla(lPaciente, Vista.TABLAPACIENTE);
+                break;
+        }
+    }
+
 }

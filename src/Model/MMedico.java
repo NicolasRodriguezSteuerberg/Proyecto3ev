@@ -7,8 +7,9 @@ import Clases.Medico;
 import com.nicosteuerberg.datos.VentanaLabel;
 import javax.swing.*;
 import java.sql.*;
+import java.util.Observable;
 
-public class MMedico{
+public class MMedico extends Observable {
     GestionBases auxCon= new GestionBases();
     int verificacion;
     int numeroAModificar;
@@ -31,6 +32,8 @@ public class MMedico{
             ps.executeUpdate();
 
             VentanaLabel.mensajeLabel("Médico añadido", label, Color.black);
+            setChanged();
+            notifyObservers("medico");
 
             /**ToDO
              * Modificar el numero de médicos de un hospital
@@ -51,20 +54,29 @@ public class MMedico{
     public void modificarMedico(ArrayList<Medico> lista, String codM, JLabel label){
         try {
             Connection con = auxCon.conectar();
-            PreparedStatement ps = con.prepareStatement("UPDATE medico SET nomM=?,codH=? WHERE codM=?");
-
-            ps.setString(1, lista.get(numeroAModificar).getNomP());
-            ps.setString(2, lista.get(numeroAModificar).getCodH1());
-            ps.setString(3, codM);
-
-            verificacion=ps.executeUpdate();
-            if(verificacion==0){
-                VentanaLabel.mensajeLabel("No existe el medico con el codigo "+codM,label,Color.red);
-            }else {
-                VentanaLabel.mensajeLabel("Medico modificado", label, Color.black);
+            PreparedStatement ps = con.prepareStatement("update medico set nomM=?, codH=? where codM=?");
+            for (int i = 0; i< lista.size();i++){
+                if(lista.get(i).getCodP().equals(codM)){
+                    numeroAModificar = i;
+                }
             }
 
-        }catch(SQLException e){
+            ps.setString(1, lista.get(numeroAModificar).getNomP());
+            ps.setString(2,  lista.get(numeroAModificar).getCodH1());
+            ps.setString(3,  codM);
+
+            verificacion = ps.executeUpdate();
+
+            if(verificacion==0){
+                VentanaLabel.mensajeLabel("No existe el medico con el código: " +  codM, label, Color.red);
+            }
+            else{
+                VentanaLabel.mensajeLabel("Medico modificado",label,Color.black);
+                setChanged();
+                notifyObservers("medico");
+            }
+
+        } catch (SQLException e) {
             VentanaLabel.mensajeLabel("ERROR en la modificación del medico",label,Color.red);
         }
     }
@@ -76,8 +88,6 @@ public class MMedico{
      * @param label -> etiqueta de la interfaz para mostrar los mensajes
      */
     public void eliminarMedico(ArrayList<Medico>lista,String codM, JLabel label){
-        numeroAModificar=lista.indexOf(codM);
-        lista.remove(numeroAModificar);
         try {
             Connection con = auxCon.conectar();
             PreparedStatement ps = con.prepareStatement("DELETE FROM medico WHERE codM=?");
@@ -90,37 +100,22 @@ public class MMedico{
                 VentanaLabel.mensajeLabel(" No existe el médico con tal codigo",label,Color.red);
 
             }else{
+                for (int i = 0; i< lista.size();i++){
+                    if(lista.get(i).getCodP().equals(codM)){
+                        numeroAModificar = i;
+                    }
+                }
+                lista.remove(numeroAModificar);
+
                 VentanaLabel.mensajeLabel("Médico eliminado",label,Color.black);
 
+                setChanged();
+                notifyObservers("medico");
             }
 
         }catch(SQLException e){
             VentanaLabel.mensajeLabel("Error en la eliminación del medico",label,Color.red);
         }
-    }
-
-    /**
-     * Método para contar la cantidad de médicos en la base de datos
-     * @param codH -> codigo del hospital al que pertenece el medico
-     * @param label -> etiqueta de la interfaz para mostrar los mensajes
-     * @return cantidad de médicos en el hospital respectivamente
-     */
-    public int contarMedicos(String codH, JLabel label){
-        int valor=0;
-        try {
-            Connection con = auxCon.conectar();
-            ResultSet rs;
-            PreparedStatement ps = con.prepareStatement("SELECT COUNT(*) FROM medico WHERE codH=?");
-
-            ps.setString(1, codH);
-
-            rs=ps.executeQuery();
-            valor = rs.getInt(1);
-        }catch(SQLException e){
-            VentanaLabel.mensajeLabel("Error al contar los medicos",label,Color.red);
-        }
-
-        return valor;
     }
 
     /**
@@ -131,7 +126,11 @@ public class MMedico{
      * @param codH -> código del hospital al que pertenece
      */
     public void modificarArray(ArrayList<Medico> lista, String codM, String nombreM, String codH){
-        numeroAModificar = lista.indexOf(codM);
+        for (int i = 0; i< lista.size();i++){
+            if(lista.get(i).getCodP().equals(codM)){
+                numeroAModificar = i;
+            }
+        }
         lista.get(numeroAModificar).setNomP(nombreM);
         lista.get(numeroAModificar).setCodP(codM);
         lista.get(numeroAModificar).setCodH1(codH);

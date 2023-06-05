@@ -3,6 +3,11 @@ package Model;
 import Clases.Hospital;
 import Clases.Medico;
 import Clases.Paciente;
+import Controller.Controller;
+import View.Vista;
+import View.pHospital;
+
+import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -26,8 +31,50 @@ public class GestionBases {
         return cx;
     }
 
-    public static void crearArrayList(ArrayList<Hospital> lHospital, ArrayList<Medico> lMedico, ArrayList<Paciente> lPaciente){
+    /**
+     * Método para crear los ArrayList al principio del programa
+     * @param lHospital -> ArrayList de hospital
+     * @param lMedico -> ArrayList de médico
+     * @param lPaciente -> ArrayList de paciente
+     */
+    public void crearArrayList(ArrayList<Hospital> lHospital, ArrayList<Medico> lMedico, ArrayList<Paciente> lPaciente){
+        PreparedStatement ps;
+        ResultSet rs;
 
+        try{
+            Connection con = conectar();
+
+            //Para el hospital
+            ps=con.prepareStatement("SELECT codH,nombreH,tipoH,nroM,nroHabt FROM hospital");
+            rs=ps.executeQuery();
+
+            while(rs.next()){
+                lHospital.add(new Hospital(rs.getString(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getInt(5)));
+            }
+            Controller.crearTabla(Vista.TABLAHOSPITAL);
+
+            //Para los medicos
+            ps=con.prepareStatement("SELECT codM,nomM,codH FROM medico");
+            rs=ps.executeQuery();
+
+            while(rs.next()){
+                lMedico.add(new Medico(rs.getString(1),rs.getString(2),rs.getString(3)));
+            }
+            Controller.crearTabla(Vista.TABLAMEDICO);
+
+            //Para los pacientes
+            ps=con.prepareStatement("SELECT codP,nomP,codM FROM paciente");
+            rs=ps.executeQuery();
+
+            while(rs.next()){
+                lPaciente.add(new Paciente(rs.getString(1),rs.getString(2),rs.getString(3)));
+            }
+            Controller.crearTabla(Vista.TABLAPACIENTE);
+
+
+        }catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e.toString());
+        }
     }
 
     public void desconectar() {

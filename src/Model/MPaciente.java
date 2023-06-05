@@ -5,12 +5,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Observable;
+
 import Clases.Paciente;
 import com.nicosteuerberg.datos.VentanaLabel;
 
 import javax.swing.*;
 
-public class MPaciente{
+public class MPaciente extends Observable {
     GestionBases auxCon= new GestionBases();
     int verificacion;
 
@@ -34,6 +36,9 @@ public class MPaciente{
 
             VentanaLabel.mensajeLabel("Paciente añadido",label, Color.black);
 
+            setChanged();
+            notifyObservers("paciente");
+
         } catch (SQLException e) {
             VentanaLabel.mensajeLabel("ERROR a la hora de hacer el insert",label,Color.red);
         }
@@ -49,6 +54,12 @@ public class MPaciente{
         try {
             Connection con = auxCon.conectar();
             PreparedStatement ps = con.prepareStatement("UPDATE paciente SET codM=?,nomP=? WHERE codP=?");
+            for (int i = 0; i< lista.size();i++){
+                if(lista.get(i).getCodP().equals(codP)){
+                    numeroAModificar = i;
+                }
+            }
+
 
             ps.setString(1, lista.get(numeroAModificar).getCodMed1());
             ps.setString(2,  lista.get(numeroAModificar).getNomP());
@@ -59,6 +70,8 @@ public class MPaciente{
                 VentanaLabel.mensajeLabel("No existe el paciente con el codigo "+codP,label,Color.red);
             }else {
                 VentanaLabel.mensajeLabel("Paciente modificado", label, Color.black);
+                setChanged();
+                notifyObservers("paciente");
             }
 
         }catch(SQLException e){
@@ -73,8 +86,6 @@ public class MPaciente{
      * @param label -> etiqueta de la interfaz para mostrar los mensajes
      */
     public void eliminarPaciente(ArrayList<Paciente>lista,String codP, JLabel label){
-        numeroAModificar=lista.indexOf(codP);
-        lista.remove(numeroAModificar);
         try {
             Connection con = auxCon.conectar();
             PreparedStatement ps = con.prepareStatement("DELETE FROM paciente WHERE codP=?");
@@ -85,7 +96,17 @@ public class MPaciente{
             if(verificacion==0){
                 VentanaLabel.mensajeLabel("No existe el paciente con el codigo "+codP,label,Color.red);
             }else {
+                for (int i = 0; i< lista.size();i++){
+                    if(lista.get(i).getCodP().equals(codP)){
+                        numeroAModificar = i;
+                    }
+                }
+                lista.remove(numeroAModificar);
+
                 VentanaLabel.mensajeLabel("Paciente eliminado", label, Color.black);
+
+                setChanged();
+                notifyObservers("paciente");
             }
 
         }catch(SQLException e){
@@ -101,7 +122,11 @@ public class MPaciente{
      * @param codM -> código del médico que atiende al paciente respectivamente
      */
     public void modificarArray(ArrayList<Paciente> lista, String codP, String nombreP, String codM){
-        numeroAModificar = lista.indexOf(codP);
+        for (int i = 0; i< lista.size();i++){
+            if(lista.get(i).getCodP().equals(codP)){
+                numeroAModificar = i;
+            }
+        }
         lista.get(numeroAModificar).setNomP(nombreP);
         lista.get(numeroAModificar).setCodP(codP);
         lista.get(numeroAModificar).setCodMed1(codM);

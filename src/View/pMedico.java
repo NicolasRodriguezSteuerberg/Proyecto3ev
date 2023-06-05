@@ -1,8 +1,13 @@
 package View;
 
+import Clases.Hospital;
+import Clases.Medico;
 import Controller.Controller;
 import com.nicosteuerberg.datos.VentanaLabel;
 import java.awt.Color;
+import java.util.ArrayList;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
@@ -62,7 +67,7 @@ public class pMedico extends javax.swing.JPanel {
                 new Object [][] {
 
                 },
-                new String [] {
+                new Object [] {
                         "codM", "nombreM", "codH1"
                 }
         ) {
@@ -323,6 +328,24 @@ public class pMedico extends javax.swing.JPanel {
         Controller.cambiarPaneles(Vista.panelMenu);
     }
 
+    public void crear(ArrayList<Medico>lista){
+        DefaultTableModel modeloTabla=(DefaultTableModel) tMedico.getModel();
+        modeloTabla.setRowCount(0);
+        int columnas=3;
+
+        try{
+            for (int j=0;j<lista.size();j++){
+                Object[] fila= new Object[columnas];
+                fila[0]=lista.get(j).getCodP();
+                fila[1]=lista.get(j).getNomP();
+                fila[2]=lista.get(j).getCodH1();
+
+                modeloTabla.addRow(fila);
+            }
+        }catch(Exception e){
+            VentanaLabel.mensajeLabel("Error al cargar tabla",eMensaje,Color.red);
+        }
+    }
 
 
     // Variables declaration - do not modify
@@ -333,7 +356,7 @@ public class pMedico extends javax.swing.JPanel {
     private javax.swing.JButton bVolverMenu;
     private javax.swing.JLabel eCodm;
     private javax.swing.JLabel eLogo;
-    private javax.swing.JLabel eMensaje;
+    public javax.swing.JLabel eMensaje;
     private javax.swing.JLabel eNomH;
     private javax.swing.JLabel ecodH;
     private javax.swing.JScrollPane jScrollPane1;

@@ -1,9 +1,13 @@
 package View;
 
+import Clases.Hospital;
+import Clases.Medico;
 import Controller.Controller;
 import com.nicosteuerberg.datos.VentanaLabel;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
@@ -11,7 +15,7 @@ import javax.swing.table.TableModel;
  * @author dam1
  */
 public class pHospital extends javax.swing.JPanel {
-    Integer numero;
+    Integer posicion;
 
     /**
      * Creates new form pHospital
@@ -67,7 +71,7 @@ public class pHospital extends javax.swing.JPanel {
                 new Object [][] {
 
                 },
-                new String [] {
+                new Object [] {
                         "codH", "nombreH", "tipoH", "nºMedicos", "nºHabitaciones"
                 }
         ) {
@@ -277,7 +281,7 @@ public class pHospital extends javax.swing.JPanel {
         lcodH.setText(model.getValueAt(fila, 0).toString());
         lnombreH.setText(model.getValueAt(fila, 1).toString());
         cTipoH.setSelectedItem(model.getValueAt(fila, 2).toString());
-        lnHabitaciones.setText(model.getValueAt(fila, 3).toString());
+        lnHabitaciones.setText(model.getValueAt(fila, 4).toString());
     }
 
     private void bVaciarActionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,19 +292,18 @@ public class pHospital extends javax.swing.JPanel {
 
     private void bCrearActionPerformed(java.awt.event.ActionEvent evt) {
         try {
-            numero = Integer.parseInt(lnHabitaciones.getText());
+            posicion = Integer.parseInt(lnHabitaciones.getText());
         }catch (Exception e){}
 
         if(lcodH.getText().equals("") || lnHabitaciones.getText().equals("") || lnombreH.getText().equals("")){
             VentanaLabel.mensajeLabel("LOS CAMPOS NO PUEDEN ESTAR VACIOS, RELLENELOS Y VUELVA A INTENTARLO", eMensaje, Color.red);
         }
-        else if(numero == null){
+        else if(posicion == null){
             VentanaLabel.mensajeLabel("EL NUMERO DE HABITACIONES NO PUEDE CONTENER LETRAS O SIGNOS", eMensaje, Color.red);
         }
         else{
             VentanaLabel.mensajeLabel("", eMensaje, Color.red);
-            Controller.crearHospital(lcodH.getText(),lnombreH.getText(),cTipoH.getSelectedItem().toString(),numero,eMensaje);
-            System.out.println("dfbdsbfjd");
+            Controller.crearHospital(lcodH.getText(),lnombreH.getText(),cTipoH.getSelectedItem().toString(), posicion,eMensaje);
         }
 
     }
@@ -324,17 +327,19 @@ public class pHospital extends javax.swing.JPanel {
     }
 
     private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {
-        try{
-            numero = Integer.parseInt(lnHabitaciones.getText());
+        try {
+            posicion = Integer.parseInt(lnHabitaciones.getText());
+        }catch (Exception e){}
 
-            if(lcodH.getText().equals("") || lnHabitaciones.getText().equals("") || lnombreH.getText().equals("")){
-                VentanaLabel.mensajeLabel("LOS CAMPOS NO PUEDEN ESTAR VACIOS, RELLENELOS Y VUELVA A INTENTARLO", eMensaje, Color.red);
-            }
-            else{
-                Controller.modificarHospital(lcodH.getText(), lnombreH.getText(), cTipoH.getSelectedItem().toString(), numero, eMensaje);
-            }
-        }catch(Exception e){
+        if(lcodH.getText().equals("") || lnHabitaciones.getText().equals("") || lnombreH.getText().equals("")){
+            VentanaLabel.mensajeLabel("LOS CAMPOS NO PUEDEN ESTAR VACIOS, RELLENELOS Y VUELVA A INTENTARLO", eMensaje, Color.red);
+        }
+        else if(posicion == null){
             VentanaLabel.mensajeLabel("EL NUMERO DE HABITACIONES NO PUEDE CONTENER LETRAS O SIGNOS", eMensaje, Color.red);
+        }
+        else{
+            VentanaLabel.mensajeLabel("", eMensaje, Color.red);
+            Controller.modificarHospital(lcodH.getText(), lnombreH.getText(), cTipoH.getSelectedItem().toString(), posicion, eMensaje);
         }
     }
 
@@ -351,6 +356,26 @@ public class pHospital extends javax.swing.JPanel {
         Controller.cambiarPaneles(Vista.panelMenu);
     }
 
+    public void crear(ArrayList<Hospital>lista){
+        DefaultTableModel modeloTabla=(DefaultTableModel) tHospital.getModel();
+        modeloTabla.setRowCount(0);
+        int columnas=5;
+
+        try{
+            for (int j=0;j<lista.size();j++){
+                Object[] fila= new Object[columnas];
+                fila[0]=lista.get(j).getCodH();
+                fila[1]=lista.get(j).getNombreH();
+                fila[2]=lista.get(j).getTipoH();
+                fila[3]=lista.get(j).getNroMedicos();
+                fila[4]=lista.get(j).getNroHabitaciones();
+
+                modeloTabla.addRow(fila);
+            }
+        }catch(Exception e){
+            VentanaLabel.mensajeLabel("Error al cargar tabla",eMensaje,Color.red);
+        }
+    }
 
 
     // Variables declaration - do not modify
@@ -361,7 +386,7 @@ public class pHospital extends javax.swing.JPanel {
     private javax.swing.JButton bVolverMenu;
     private javax.swing.JComboBox<String> cTipoH;
     private javax.swing.JLabel eCodh;
-    private javax.swing.JLabel eMensaje;
+    public javax.swing.JLabel eMensaje;
     private javax.swing.JLabel eNHabitaciones;
     private javax.swing.JLabel eNomH;
     private javax.swing.JLabel eTipoH;
