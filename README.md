@@ -238,3 +238,12 @@ sequenceDiagram
     deactivate PanelPaciente
 
 ```
+---
+### IMPORTANTE :warning:
+
+Para ejecutar esta aplicación, es necesario tener acceso al servidor MySQL y la base de datos local del sistema.
+
+---
+*Gabriel A. Pérez P*
+
+*Nicolas R. Steuerberg*
