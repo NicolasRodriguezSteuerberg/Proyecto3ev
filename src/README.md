@@ -166,8 +166,14 @@ PAQUETE VIEW
         pPaciente pP
         IMenu ventana
         +crearPaneles()
+        +quitarPaneles()
+        +visualizarMenu()
+        +visualizarHospital()
+        +visualizarMedico()
+        +visualizarPaciente()
+        +crearTabla()
         }
-        
+     
         Controller "1" *-- "1" Vista : association
         
         class pHospital{
@@ -198,3 +204,5 @@ MAIN
       
       App "1" *-- "1" Controller : association
 ```
+## Diagrama de Secuencias:
+
