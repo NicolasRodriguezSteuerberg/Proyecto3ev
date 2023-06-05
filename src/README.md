@@ -173,7 +173,7 @@ PAQUETE VIEW
         +visualizarPaciente()
         +crearTabla()
         }
-        
+     
         Controller "1" *-- "1" Vista : association
         
         class pHospital{
